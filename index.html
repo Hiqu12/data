@@ -1,230 +1,572 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard - CharterHouseCars Bookings</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-:root {
-    --primary: #1a1f36;
-    --accent: #ff6b35;
-    --text: #2d3748;
-    --light: #f8f9fa;
-    --shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-body { background: var(--light); color: var(--text); }
-header { background: var(--primary); color: white; padding: 1rem 2rem; text-align: center; font-size: 1.5rem; }
-main { max-width: 1200px; margin: 2rem auto; padding: 0 20px; }
-table { width: 100%; border-collapse: collapse; box-shadow: var(--shadow); background: white; border-radius: 10px; overflow: hidden; display:none; }
-th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
-th { background: var(--primary); color: white; }
-tr:hover { background: rgba(255, 107, 53, 0.1); }
-.delete-btn, .edit-btn { color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer; transition:0.3s; }
-.delete-btn { background: var(--accent); }
-.delete-btn:hover { background: #e55325; }
-.edit-btn { background: #1a73e8; margin-right:5px; }
-.edit-btn:hover { background: #155ab6; }
-#loginContainer { max-width: 400px; margin: 5rem auto; text-align:center; background:white; padding:2rem; border-radius:10px; box-shadow:var(--shadow); }
-#loginContainer input { width: 100%; padding:12px; margin:10px 0; border-radius:5px; border:1px solid #ccc; }
-#loginContainer button { padding:12px 20px; background:var(--primary); color:white; border:none; border-radius:5px; cursor:pointer; }
-#loginContainer button:hover { background: var(--accent); }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CharterHouseCars Admin Dashboard</title>
+    <link rel="manifest" href="manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #1a1f36;
+        --accent: #ff6b35;
+        --accent-light: #ff8c5a;
+        --text: #2d3748;
+        --light: #f8f9fa;
+        --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background: var(--light);
+        color: var(--text);
+      }
+      header {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      header h1 {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      header button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      header button:hover {
+        background: var(--accent-light);
+      }
+      main {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 20px;
+      }
+      input,
+      button {
+        outline: none;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: var(--shadow);
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        transition: var(--transition);
+      }
+      th {
+        background: var(--primary);
+        color: white;
+      }
+      tr:hover {
+        background: rgba(255, 107, 53, 0.1);
+      }
+      .edit-btn,
+      .delete-btn,
+      .whatsapp-btn,
+      .email-btn {
+        border: none;
+        padding: 6px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.9rem;
+        margin: 10px;
+      }
+      .edit-btn {
+        background: #007bff;
+        color: white;
+      }
+      .edit-btn:hover {
+        background: #0056b3;
+      }
+      .delete-btn {
+        background: var(--accent);
+        color: white;
+      }
+      .delete-btn:hover {
+        background: #e55325;
+      }
+      .whatsapp-btn {
+        background: #25d366;
+        color: white;
+      }
+      .whatsapp-btn:hover {
+        background: #1da851;
+      }
+      .email-btn {
+        background: #0072c6;
+        color: white;
+      }
+      .email-btn:hover {
+        background: #005a9e;
+      }
+      #login-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+      }
+      #login-form {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: var(--shadow);
+      }
+      #login-form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      #login-form input {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      #login-form button {
+        width: 100%;
+        padding: 12px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      #login-form button:hover {
+        background: var(--accent);
+      }
+      .search-container {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .search-container input {
+        padding: 10px 15px;
+        width: 250px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      .edit-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+      .edit-modal.active {
+        display: flex;
+      }
+      .edit-content {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 90%;
+        overflow-y: auto;
+        box-shadow: var(--shadow);
+        position: relative;
+      }
+      .edit-content h3 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .edit-content label {
+        display: block;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+      .edit-content input,
+      .edit-content textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+      }
+      .edit-content button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: var(--accent);
+        color: white;
+        transition: var(--transition);
+      }
+      .edit-content button:hover {
+        background: #e55325;
+      }
+      .edit-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #333;
+      }
+      @media (max-width: 768px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+        th {
+          position: sticky;
+          top: 0;
+        }
+        td {
+          position: relative;
+          padding-left: 50%;
+          margin-bottom: 10px;
+        }
+        td::before {
+          position: absolute;
+          left: 10px;
+          top: 12px;
+          font-weight: bold;
+          content: attr(data-label);
+          word-wrap: break-word;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="login-container">
+      <form id="login-form">
+        <h2><i class="fas fa-user-lock"></i> Admin Login</h2>
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="Enter password"
+          required
+        />
+        <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+      </form>
+    </div>
 
-/* Modal Styles */
-.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
-.modal-content { background:white; padding:20px; border-radius:10px; width:450px; position:relative; max-height:90vh; overflow-y:auto; }
-.modal-content h3 { margin-bottom:15px; text-align:center; }
-.modal-content label { display:block; margin-top:10px; font-weight:500; }
-.modal-content input, .modal-content textarea { width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
-.modal-content button { margin-top:15px; padding:12px; width:100%; border:none; border-radius:5px; cursor:pointer; background:var(--primary); color:white; font-size:1rem; }
-.modal-content button:hover { background: var(--accent); }
-.close-btn { position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5rem; color:#555; }
-</style>
-</head>
-<body>
+    <header>
+      <h1><i class="fas fa-car-side"></i> CharterHouseCars Admin</h1>
+      <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </header>
 
-<header>CharterHouseCars Admin Dashboard</header>
-
-<div id="loginContainer">
-    <h2>Admin Login</h2>
-    <input type="password" id="adminPassword" placeholder="Enter password">
-    <button id="loginBtn">Login</button>
-</div>
-
-<main>
-    <h2>All Bookings</h2>
-    <table id="bookingTable">
+    <main>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search bookings..." />
+      </div>
+      <table id="bookingTable" border="collapse" >
         <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Pickup</th>
-                <th>Drop-off</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Vehicle</th>
-                <th>Special Requests</th>
-                <th>Action</th>
-            </tr>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Pickup</th>
+            <th>Drop-off</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Vehicle</th>
+            <th>Requests</th>
+            <th>Actions</th>
+          </tr>
         </thead>
         <tbody></tbody>
-    </table>
-</main>
+      </table>
+    </main>
 
-<!-- Edit Modal -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" id="closeModal">&times;</span>
+    <div class="edit-modal" id="editModal">
+      <div class="edit-content">
+        <span class="edit-close" id="editClose">&times;</span>
         <h3>Edit Booking</h3>
-        <label>First Name</label>
-        <input type="text" id="editFirstName">
-        <label>Last Name</label>
-        <input type="text" id="editLastName">
-        <label>Email</label>
-        <input type="email" id="editEmail">
-        <label>Phone</label>
-        <input type="text" id="editPhone">
-        <label>Pickup Location</label>
-        <input type="text" id="editPickup">
-        <label>Drop-off Location</label>
-        <input type="text" id="editDropoff">
-        <label>Date</label>
-        <input type="date" id="editDate">
-        <label>Time</label>
-        <input type="time" id="editTime">
-        <label>Vehicle</label>
-        <input type="text" id="editVehicle">
-        <label>Special Requests</label>
-        <textarea id="editSpecial" rows="3"></textarea>
-        <button id="saveEdit">Save Changes</button>
+        <label>Name</label><input type="text" id="editName" />
+        <label>Email</label><input type="email" id="editEmail" />
+        <label>Phone</label><input type="tel" id="editPhone" />
+        <label>Pickup Location</label><input type="text" id="editPickup" />
+        <label>Drop-off Location</label><input type="text" id="editDropoff" />
+        <label>Date</label><input type="date" id="editDate" />
+        <label>Time</label><input type="time" id="editTime" />
+        <label>Vehicle</label><input type="text" id="editVehicle" />
+        <label>Special Requests</label><textarea id="editRequests"></textarea>
+        <button id="saveEditBtn">
+          <i class="fas fa-save"></i> Save Changes
+        </button>
+      </div>
     </div>
-</div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+      // Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyBhEqtkjqt-_KCRCMmweX4RfySyVZ3OK2E",
+        authDomain: "charterhousecars-5631d.firebaseapp.com",
+        databaseURL:
+          "https://charterhousecars-5631d-default-rtdb.firebaseio.com",
+        projectId: "charterhousecars-5631d",
+        storageBucket: "charterhousecars-5631d.appspot.com",
+        messagingSenderId: "227890687089",
+        appId: "1:227890687089:web:d656b58e6720a42ec2ffd0",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBhEqtkjqt-_KCRCMmweX4RfySyVZ3OK2E",
-  authDomain: "charterhousecars-5631d.firebaseapp.com",
-  databaseURL: "https://charterhousecars-5631d-default-rtdb.firebaseio.com",
-  projectId: "charterhousecars-5631d",
-  storageBucket: "charterhousecars-5631d.firebasestorage.app",
-  messagingSenderId: "227890687089",
-  appId: "1:227890687089:web:d656b58e6720a42ec2ffd0",
-  measurementId: "G-JRM3HP1W93"
-};
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+      // Login
+      const loginContainer = document.getElementById("login-container");
+      const loginForm = document.getElementById("login-form");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const SESSION_TIME = 30 * 60 * 1000;
+      const PASSWORD = "o";
 
-const tableBody = document.querySelector('#bookingTable tbody');
-const bookingTable = document.getElementById('bookingTable');
-const loginContainer = document.getElementById('loginContainer');
-const loginBtn = document.getElementById('loginBtn');
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const pass = document.getElementById("adminPassword").value;
+        if (pass === PASSWORD) {
+          localStorage.setItem("adminLoggedIn", Date.now());
+          loginContainer.style.display = "none";
+          loadBookings();
+        } else alert("Incorrect password");
+      });
 
-const ADMIN_PASSWORD = "r"; // CHANGE PASSWORD HERE
-let currentEditKey = null;
+      function checkSession() {
+        const ts = localStorage.getItem("adminLoggedIn");
+        if (ts && Date.now() - ts < SESSION_TIME) {
+          loginContainer.style.display = "none";
+          loadBookings();
+        } else localStorage.removeItem("adminLoggedIn");
+      }
+      checkSession();
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("adminLoggedIn");
+        location.reload();
+      });
 
-loginBtn.addEventListener('click', () => {
-    const input = document.getElementById('adminPassword').value;
-    if(input === ADMIN_PASSWORD){
-        loginContainer.style.display = "none";
-        bookingTable.style.display = "table";
-        loadBookings();
-    } else {
-        alert("Incorrect password!");
-    }
-});
+      // Table bookings
+      const tableBody = document.querySelector("#bookingTable tbody");
+      let lastKeys = [];
 
-function loadBookings(){
-    database.ref('bookings').on('value', (snapshot) => {
-        tableBody.innerHTML = '';
-        const bookings = snapshot.val();
-        if(bookings){
-            Object.keys(bookings).forEach(key => {
-                const b = bookings[key];
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${b.firstName} ${b.lastName}</td>
-                    <td>${b.email}</td>
-                    <td>${b.phone}</td>
-                    <td>${b.pickupLocation}</td>
-                    <td>${b.dropoffLocation}</td>
-                    <td>${b.pickupDate}</td>
-                    <td>${b.pickupTime}</td>
-                    <td>${b.vehicle}</td>
-                    <td>${b.specialRequests || '-'}</td>
-                    <td>
-                        <button class="edit-btn" data-key="${key}">Edit</button>
-                        <button class="delete-btn" data-key="${key}">Delete</button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
+      function loadBookings() {
+        database.ref("bookings").on("value", (snapshot) => {
+          const bookings = snapshot.val();
+          tableBody.innerHTML = "";
+          let currentKeys = [];
+          if (bookings) {
+            Object.keys(bookings).forEach((key) => {
+              currentKeys.push(key);
+              const b = bookings[key];
+              const row = document.createElement("tr");
+              row.innerHTML = `
+<td data-label="Name"><i class="fas fa-user"></i> ${b.firstName} ${b.lastName}</td>
+<td data-label="Email"><i class="fas fa-envelope"></i> ${b.email}</td>
+<td data-label="Phone"><i class="fas fa-phone"></i> ${b.phone}</td>
+<td data-label="Pickup"><i class="fas fa-map-marker-alt"></i> ${b.pickupLocation}</td>
+<td data-label="Drop-off"><i class="fas fa-map-marker-alt"></i> ${b.dropoffLocation}</td>
+<td data-label="Date"><i class="fas fa-calendar-alt"></i> ${b.pickupDate}</td>
+<td data-label="Time"><i class="fas fa-clock"></i> ${b.pickupTime}</td>
+<td data-label="Vehicle"><i class="fas fa-car-side"></i> ${b.vehicle}</td>
+<td data-label="Requests"><i class="fas fa-comment"></i> ${b.specialRequests || "-"}</td>
+<td data-label="Actions">
+<button class="edit-btn" data-key="${key}"><i class="fas fa-edit"></i></button>
+<button class="delete-btn" data-key="${key}"><i class="fas fa-trash-alt"></i> </button>
+<button class="whatsapp-btn" data-key="${key}"><i class="fab fa-whatsapp"></i> </button>
+<button class="email-btn" data-email="${b.email}" data-name="${b.firstName}"><i class="fas fa-envelope"></i> </button>
+</td>`;
+              tableBody.appendChild(row);
             });
 
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function(){
-                    const key = this.dataset.key;
-                    if(confirm("Are you sure you want to delete this booking?")){
-                        database.ref('bookings/' + key).remove()
-                            .then(() => alert("Booking deleted successfully."))
-                            .catch(err => alert("Error deleting booking: " + err));
-                    }
-                });
-            });
+            const newKeys = currentKeys.filter((k) => !lastKeys.includes(k));
+            newKeys.forEach((k) => notifyBooking(bookings[k]));
+            lastKeys = currentKeys;
 
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', function(){
-                    currentEditKey = this.dataset.key;
-                    const b = bookings[currentEditKey];
-                    document.getElementById('editFirstName').value = b.firstName;
-                    document.getElementById('editLastName').value = b.lastName;
-                    document.getElementById('editEmail').value = b.email;
-                    document.getElementById('editPhone').value = b.phone;
-                    document.getElementById('editPickup').value = b.pickupLocation;
-                    document.getElementById('editDropoff').value = b.dropoffLocation;
-                    document.getElementById('editDate').value = b.pickupDate;
-                    document.getElementById('editTime').value = b.pickupTime;
-                    document.getElementById('editVehicle').value = b.vehicle;
-                    document.getElementById('editSpecial').value = b.specialRequests || '';
-                    document.getElementById('editModal').style.display = 'flex';
-                });
-            });
-        } else {
-            tableBody.innerHTML = '<tr><td colspan="10" style="text-align:center;">No bookings found</td></tr>';
+            document
+              .querySelectorAll(".edit-btn")
+              .forEach((btn) =>
+                btn.addEventListener("click", () =>
+                  openEditModal(btn.dataset.key),
+                ),
+              );
+            document.querySelectorAll(".delete-btn").forEach((btn) =>
+              btn.addEventListener("click", () => {
+                if (confirm("Are you sure?"))
+                  database.ref("bookings/" + btn.dataset.key).remove();
+              }),
+            );
+            document.querySelectorAll(".whatsapp-btn").forEach((btn) =>
+              btn.addEventListener("click", () => {
+                sendWhatsAppConfirmation(bookings[btn.dataset.key]);
+              }),
+            );
+            document.querySelectorAll(".email-btn").forEach((btn) =>
+              btn.addEventListener("click", (e) => {
+                const email =
+                  e.target.dataset.email ||
+                  e.target.closest("button").dataset.email;
+                const name =
+                  e.target.dataset.name ||
+                  e.target.closest("button").dataset.name;
+                const subject = "Booking Confirmation";
+                const body = `Hello ${name}, your booking is confirmed.`;
+                window.open(
+                  `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+                );
+              }),
+            );
+          } else
+            tableBody.innerHTML =
+              '<tr><td colspan="10" style="text-align:center;">No bookings found</td></tr>';
+        });
+      }
+
+      // Search
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        const filter = e.target.value.toLowerCase();
+        document.querySelectorAll("#bookingTable tbody tr").forEach((row) => {
+          row.style.display = Array.from(row.children).some((td) =>
+            td.textContent.toLowerCase().includes(filter),
+          )
+            ? ""
+            : "none";
+        });
+      });
+
+      // Edit modal
+      const editModal = document.getElementById("editModal");
+      const editClose = document.getElementById("editClose");
+      const saveEditBtn = document.getElementById("saveEditBtn");
+      let currentEditKey = "";
+
+      function openEditModal(key) {
+        currentEditKey = key;
+        database
+          .ref("bookings/" + key)
+          .get()
+          .then((snapshot) => {
+            const b = snapshot.val();
+            document.getElementById("editName").value =
+              b.firstName + " " + b.lastName;
+            document.getElementById("editEmail").value = b.email;
+            document.getElementById("editPhone").value = b.phone;
+            document.getElementById("editPickup").value = b.pickupLocation;
+            document.getElementById("editDropoff").value = b.dropoffLocation;
+            document.getElementById("editDate").value = b.pickupDate;
+            document.getElementById("editTime").value = b.pickupTime;
+            document.getElementById("editVehicle").value = b.vehicle;
+            document.getElementById("editRequests").value = b.specialRequests;
+            editModal.classList.add("active");
+          });
+      }
+      editClose.addEventListener("click", () =>
+        editModal.classList.remove("active"),
+      );
+      saveEditBtn.addEventListener("click", () => {
+        const nameParts = document.getElementById("editName").value.split(" ");
+        const firstName = nameParts.shift();
+        const lastName = nameParts.join(" ");
+        database
+          .ref("bookings/" + currentEditKey)
+          .update({
+            firstName,
+            lastName,
+            email: document.getElementById("editEmail").value,
+            phone: document.getElementById("editPhone").value,
+            pickupLocation: document.getElementById("editPickup").value,
+            dropoffLocation: document.getElementById("editDropoff").value,
+            pickupDate: document.getElementById("editDate").value,
+            pickupTime: document.getElementById("editTime").value,
+            vehicle: document.getElementById("editVehicle").value,
+            specialRequests: document.getElementById("editRequests").value,
+          })
+          .then(() => {
+            editModal.classList.remove("active");
+            alert("Booking updated");
+          });
+      });
+
+      // Notifications
+      function notifyBooking(b) {
+        if (Notification.permission === "granted") {
+          new Notification("New Booking!", {
+            body: `${b.firstName} ${b.lastName} booked ${b.vehicle} on ${b.pickupDate}`,
+            icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+          });
         }
-    });
-}
+        const audio = new Audio(
+          "https://cdn.pixabay.com/audio/2022/03/15/audio_91fbc81baf.mp3",
+        );
+        let start = Date.now();
+        const interval = setInterval(() => {
+          audio.play().catch(() => {});
+          if (Date.now() - start > 30000) clearInterval(interval);
+        }, 2000);
+        if (navigator.vibrate) navigator.vibrate([300, 100, 300]);
+      }
 
-// Close modal
-document.getElementById('closeModal').addEventListener('click', () => {
-    document.getElementById('editModal').style.display = 'none';
-});
+      if (Notification.permission !== "granted")
+        Notification.requestPermission();
 
-// Save changes
-document.getElementById('saveEdit').addEventListener('click', () => {
-    const updatedData = {
-        firstName: document.getElementById('editFirstName').value,
-        lastName: document.getElementById('editLastName').value,
-        email: document.getElementById('editEmail').value,
-        phone: document.getElementById('editPhone').value,
-        pickupLocation: document.getElementById('editPickup').value,
-        dropoffLocation: document.getElementById('editDropoff').value,
-        pickupDate: document.getElementById('editDate').value,
-        pickupTime: document.getElementById('editTime').value,
-        vehicle: document.getElementById('editVehicle').value,
-        specialRequests: document.getElementById('editSpecial').value
-    };
-    database.ref('bookings/' + currentEditKey).update(updatedData)
-        .then(() => {
-            alert("Booking updated successfully!");
-            document.getElementById('editModal').style.display = 'none';
-        })
-        .catch(err => alert("Error updating booking: " + err));
-});
-</script>
-</body>
+      // WhatsApp
+      function sendWhatsAppConfirmation(b) {
+        const msg = `Hello ${b.firstName}, your booking for ${b.vehicle} on ${b.pickupDate} at ${b.pickupTime} is confirmed.`;
+        const phone = b.phone.replace(/\D/g, "");
+        window.open(
+          `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,
+          "_blank",
+        );
+      }
+
+      // PWA service worker
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("sw.js")
+          .then(() => console.log("SW registered"));
+      }
+    </script>
+  </body>
 </html>
