@@ -13,99 +13,94 @@
         --accent-light: #ff8c5a;
         --text: #2d3748;
         --light: #f8f9fa;
-        --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        --shadow: 0 6px 20px rgba(0,0,0,0.1);
         --transition: all 0.3s ease;
       }
       * { margin:0; padding:0; box-sizing:border-box; font-family:Poppins,sans-serif; }
-      body { background:var(--light); color:var(--text); }
+      body { background:var(--light); color:var(--text); line-height:1.5; }
       header {
-        background:var(--primary); color:white; padding:1rem 2rem;
+        background:var(--primary); color:white; padding:1rem 1.5rem;
         display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
       }
-      header h1 { font-size:1.5rem; display:flex; align-items:center; gap:10px; }
+      header h1 { font-size:1.4rem; display:flex; align-items:center; gap:8px; }
       header button {
-        background:var(--accent); color:white; border:none; padding:8px 16px;
-        border-radius:6px; cursor:pointer; transition:var(--transition);
+        background:var(--accent); color:white; border:none; padding:8px 14px;
+        border-radius:6px; cursor:pointer; font-size:0.95rem;
       }
       header button:hover { background:var(--accent-light); }
-      main { max-width:1200px; margin:2rem auto; padding:0 16px; }
-      input, button { outline:none; }
+      main { max-width:1200px; margin:1.5rem auto; padding:0 15px; }
+      .search-container { margin-bottom:1rem; text-align:right; }
+      .search-container input {
+        padding:9px 14px; width:260px; max-width:100%; border:1px solid #ccc;
+        border-radius:6px; font-size:0.95rem;
+      }
       table {
-        width:100%; border-collapse:collapse; box-shadow:var(--shadow);
-        background:white; border-radius:10px; overflow:hidden;
+        width:100%; border-collapse:collapse; background:white;
+        box-shadow:var(--shadow); border-radius:8px; overflow:hidden;
       }
-      th, td { padding:12px 14px; text-align:left; border-bottom:1px solid #ddd; }
-      th { background:var(--primary); color:white; }
-      tr:hover { background:rgba(255,107,53,0.08); }
+      th, td { padding:11px 13px; text-align:left; border-bottom:1px solid #eee; }
+      th { background:var(--primary); color:white; font-weight:600; }
+      tr:hover { background:rgba(255,107,53,0.07); }
       .actions { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-      .edit-btn, .delete-btn, .whatsapp-btn, .email-btn {
-        border:none; padding:10px 14px; border-radius:6px; cursor:pointer;
-        color:white; font-size:1rem; min-width:48px; min-height:48px;
+      .btn-action {
+        border:none; padding:8px 12px; border-radius:5px; cursor:pointer;
+        color:white; font-size:0.9rem; min-width:42px; min-height:42px;
         display:inline-flex; align-items:center; justify-content:center;
-        transition:var(--transition);
       }
-      .edit-btn    { background:#007bff; } .edit-btn:hover    { background:#0056b3; }
-      .delete-btn  { background:var(--accent); } .delete-btn:hover  { background:#e55325; }
-      .whatsapp-btn{ background:#25d366; } .whatsapp-btn:hover{ background:#1da851; }
-      .email-btn   { background:#ea4335; } .email-btn:hover   { background:#c5221f; }
+      .edit-btn    { background:#0069d9; } .edit-btn:hover    { background:#0056b3; }
+      .delete-btn  { background:#dc3545; } .delete-btn:hover  { background:#c82333; }
+      .whatsapp-btn{ background:#25d366; } .whatsapp-btn:hover{ background:#20b358; }
+      .email-btn   { background:#db4437; } .email-btn:hover   { background:#c1351f; }
+      .sms-btn     { background:#4CAF50; } .sms-btn:hover     { background:#388E3C; }
 
       #login-container {
-        position:fixed; inset:0; background:rgba(0,0,0,0.75);
-        display:flex; justify-content:center; align-items:center; z-index:9999;
+        position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:10000;
+        display:flex; justify-content:center; align-items:center;
       }
       #login-form {
-        background:white; padding:2rem; border-radius:12px;
-        width:90%; max-width:400px; box-shadow:var(--shadow);
+        background:white; padding:2rem; border-radius:10px; width:90%; max-width:380px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.2);
       }
-      #login-form h2 { text-align:center; margin-bottom:1.5rem; color:var(--primary); }
+      #login-form h2 { text-align:center; margin-bottom:1.2rem; color:var(--primary); }
       #login-form input {
-        width:100%; padding:12px; margin-bottom:1rem;
-        border:1px solid #ccc; border-radius:6px; font-size:1rem;
+        width:100%; padding:12px; margin-bottom:1rem; border:1px solid #ccc;
+        border-radius:6px; font-size:1rem;
       }
       #login-form button {
         width:100%; padding:12px; background:var(--primary); color:white;
-        border:none; border-radius:6px; font-size:1.1rem; cursor:pointer;
-      }
-      #login-form button:hover { background:var(--accent); }
-
-      .search-container { margin:1.5rem 0; text-align:right; }
-      .search-container input {
-        padding:10px 14px; width:280px; max-width:100%;
-        border:1px solid #ccc; border-radius:6px;
+        border:none; border-radius:6px; cursor:pointer; font-size:1.05rem;
       }
 
       .edit-modal {
-        position:fixed; inset:0; background:rgba(0,0,0,0.7);
-        display:none; justify-content:center; align-items:center; z-index:2000;
+        position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:2000;
+        display:none; justify-content:center; align-items:center;
       }
       .edit-modal.active { display:flex; }
       .edit-content {
-        background:white; padding:1.8rem; border-radius:10px;
-        width:90%; max-width:480px; max-height:90vh; overflow-y:auto;
-        position:relative; box-shadow:var(--shadow);
+        background:white; padding:1.8rem; border-radius:10px; width:90%; max-width:500px;
+        max-height:90vh; overflow-y:auto; box-shadow:var(--shadow); position:relative;
       }
-      .edit-close { position:absolute; top:10px; right:15px; font-size:2rem; cursor:pointer; }
-      .edit-content label { display:block; margin:12px 0 4px; font-weight:600; }
+      .edit-close { position:absolute; top:10px; right:15px; font-size:2.2rem; cursor:pointer; color:#555; }
+      .edit-content label { display:block; margin:10px 0 4px; font-weight:600; color:#444; }
       .edit-content input, .edit-content textarea {
-        width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;
+        width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:5px;
       }
-      .edit-content textarea { min-height:80px; }
+      .edit-content textarea { min-height:80px; resize:vertical; }
       .edit-content button {
-        margin-top:1.5rem; width:100%; padding:12px;
-        background:var(--accent); color:white; border:none; border-radius:6px;
-        cursor:pointer;
+        margin-top:1.4rem; width:100%; padding:12px; background:var(--accent);
+        color:white; border:none; border-radius:6px; cursor:pointer; font-size:1.05rem;
       }
 
       @media (max-width:768px) {
         table, thead, tbody, th, td, tr { display:block; }
         thead tr { position:absolute; top:-9999px; left:-9999px; }
         tr { margin-bottom:1.2rem; border:1px solid #ddd; border-radius:8px; }
-        td { border:none; position:relative; padding-left:50%; min-height:48px; display:flex; align-items:center; }
+        td { border:none; position:relative; padding-left:48%; min-height:44px; display:flex; align-items:center; }
         td::before {
-          position:absolute; left:12px; width:45%; font-weight:bold;
+          position:absolute; left:12px; width:45%; font-weight:600;
           content:attr(data-label); color:var(--primary);
         }
-        .actions { padding:12px; justify-content:center; }
+        .actions { padding:10px; justify-content:center; border-top:1px solid #eee; }
       }
     </style>
   </head>
@@ -182,7 +177,6 @@
 
       const PASSWORD = "Woking1@";
 
-      // Login handling with sessionStorage (clears on refresh)
       const loginContainer = document.getElementById("login-container");
       const loginForm = document.getElementById("login-form");
       const logoutBtn = document.getElementById("logoutBtn");
@@ -191,15 +185,14 @@
         return sessionStorage.getItem("adminLoggedIn") === "true";
       }
 
-      loginForm.addEventListener("submit", (e) => {
+      loginForm.addEventListener("submit", e => {
         e.preventDefault();
-        const pass = document.getElementById("adminPassword").value.trim();
-        if (pass === PASSWORD) {
+        if (document.getElementById("adminPassword").value.trim() === PASSWORD) {
           sessionStorage.setItem("adminLoggedIn", "true");
           loginContainer.style.display = "none";
           loadBookings();
         } else {
-          alert("Incorrect password");
+          alert("Wrong password");
         }
       });
 
@@ -216,17 +209,17 @@
       const tableBody = document.querySelector("#bookingTable tbody");
 
       function loadBookings() {
-        database.ref("bookings").on("value", (snapshot) => {
+        database.ref("bookings").on("value", snapshot => {
           tableBody.innerHTML = "";
           const bookings = snapshot.val() || {};
 
           if (Object.keys(bookings).length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:2rem;">No bookings found</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:2rem;">No bookings yet</td></tr>';
             return;
           }
 
           Object.entries(bookings).forEach(([key, b]) => {
-            const fullName = `${b.firstName || ""} ${b.lastName || ""}`.trim() || "—";
+            const fullName = [b.firstName, b.lastName].filter(Boolean).join(" ") || "—";
             const row = document.createElement("tr");
             row.innerHTML = `
               <td data-label="Name">${fullName}</td>
@@ -240,10 +233,11 @@
               <td data-label="Requests">${b.specialRequests || "—"}</td>
               <td data-label="Actions">
                 <div class="actions">
-                  <button class="edit-btn" data-key="${key}"><i class="fas fa-edit"></i></button>
-                  <button class="delete-btn" data-key="${key}"><i class="fas fa-trash-alt"></i></button>
-                  <button class="whatsapp-btn" data-key="${key}"><i class="fab fa-whatsapp"></i></button>
-                  <button class="email-btn" data-email="${b.email || ''}" data-name="${fullName}"><i class="fas fa-envelope"></i></button>
+                  <button class="btn-action edit-btn"    data-key="${key}" title="Edit booking"><i class="fas fa-edit"></i></button>
+                  <button class="btn-action delete-btn"  data-key="${key}" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                  <button class="btn-action whatsapp-btn" data-key="${key}" title="Send via WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                  <button class="btn-action email-btn"   data-email="${b.email || ''}" data-name="${fullName}" title="Send via Email"><i class="fas fa-envelope"></i></button>
+                  <button class="btn-action sms-btn"     data-phone="${b.phone || ''}" data-name="${fullName}" title="Send via SMS (UK)"><i class="fas fa-sms"></i></button>
                 </div>
               </td>`;
             tableBody.appendChild(row);
@@ -251,47 +245,43 @@
         });
       }
 
-      // Event delegation for buttons
-      tableBody.addEventListener("click", (e) => {
+      tableBody.addEventListener("click", e => {
         const btn = e.target.closest("button");
         if (!btn) return;
-        const key = btn.dataset.key;
-        const email = btn.dataset.email;
-        const name = btn.dataset.name;
 
-        if (btn.classList.contains("edit-btn")) {
-          openEditModal(key);
-        } else if (btn.classList.contains("delete-btn")) {
-          if (confirm("Delete this booking?")) {
-            database.ref("bookings/" + key).remove();
-          }
-        } else if (btn.classList.contains("whatsapp-btn")) {
-          database.ref("bookings/" + key).once("value", snap => {
-            const b = snap.val();
-            if (b?.phone) {
-              sendWhatsApp(b);
-            } else {
-              alert("No phone number found for this booking.");
-            }
+        const key   = btn.dataset.key;
+        const email = btn.dataset.email;
+        const phone = btn.dataset.phone;
+        const name  = btn.dataset.name;
+
+        if (btn.classList.contains("edit-btn"))    openEditModal(key);
+        if (btn.classList.contains("delete-btn") && confirm("Delete booking?")) {
+          database.ref("bookings/" + key).remove();
+        }
+        if (btn.classList.contains("whatsapp-btn")) {
+          database.ref("bookings/" + key).once("value", s => {
+            const b = s.val();
+            if (b?.phone) sendWhatsApp(b);
+            else alert("No phone number");
           });
-        } else if (btn.classList.contains("email-btn")) {
-          if (email) {
-            sendEmail(email, name);
-          } else {
-            alert("No email address found for this booking.");
-          }
+        }
+        if (btn.classList.contains("email-btn")) {
+          if (email) sendEmail(email, name);
+          else alert("No email address");
+        }
+        if (btn.classList.contains("sms-btn")) {
+          if (phone) sendSMS(phone, name);
+          else alert("No phone number for SMS");
         }
       });
 
-      // Search
-      document.getElementById("searchInput").addEventListener("input", (e) => {
+      document.getElementById("searchInput").addEventListener("input", e => {
         const term = e.target.value.toLowerCase();
-        document.querySelectorAll("#bookingTable tbody tr").forEach(row => {
-          row.style.display = row.textContent.toLowerCase().includes(term) ? "" : "none";
+        document.querySelectorAll("#bookingTable tbody tr").forEach(r => {
+          r.style.display = r.textContent.toLowerCase().includes(term) ? "" : "none";
         });
       });
 
-      // Edit modal
       const editModal = document.getElementById("editModal");
       const editClose = document.getElementById("editClose");
       const saveEditBtn = document.getElementById("saveEditBtn");
@@ -299,9 +289,9 @@
 
       function openEditModal(key) {
         currentEditKey = key;
-        database.ref("bookings/" + key).once("value", snap => {
-          const b = snap.val() || {};
-          document.getElementById("editName").value = `${b.firstName || ""} ${b.lastName || ""}`.trim();
+        database.ref("bookings/" + key).once("value", s => {
+          const b = s.val() || {};
+          document.getElementById("editName").value = [b.firstName, b.lastName].filter(Boolean).join(" ");
           document.getElementById("editEmail").value = b.email || "";
           document.getElementById("editPhone").value = b.phone || "";
           document.getElementById("editPickup").value = b.pickupLocation || "";
@@ -317,11 +307,12 @@
       editClose.addEventListener("click", () => editModal.classList.remove("active"));
 
       saveEditBtn.addEventListener("click", () => {
-        const [firstName, ...lastNameParts] = document.getElementById("editName").value.trim().split(/\s+/);
-        const lastName = lastNameParts.join(" ");
+        const nameParts = document.getElementById("editName").value.trim().split(/\s+/);
+        const firstName = nameParts[0] || "";
+        const lastName = nameParts.slice(1).join(" ") || "";
+
         database.ref("bookings/" + currentEditKey).update({
-          firstName: firstName || "",
-          lastName: lastName || "",
+          firstName, lastName,
           email: document.getElementById("editEmail").value.trim(),
           phone: document.getElementById("editPhone").value.trim(),
           pickupLocation: document.getElementById("editPickup").value.trim(),
@@ -332,40 +323,49 @@
           specialRequests: document.getElementById("editRequests").value.trim()
         }).then(() => {
           editModal.classList.remove("active");
-        }).catch(err => alert("Could not save: " + err.message));
+        }).catch(err => alert("Save failed: " + err.message));
       });
 
-      // WhatsApp - opens chat with prefilled message
       function sendWhatsApp(b) {
         const name = b.firstName || "Customer";
-        const message = `Hello ${name},\n\nYour booking for ${b.vehicle || "a vehicle"} on ${b.pickupDate || "—"} at ${b.pickupTime || "—"} is confirmed.\n\nThank you for choosing CharterHouseCars!`;
+        const msg = `Hello ${name},\n\nYour CharterHouseCars booking for ${b.vehicle || 'a vehicle'} on ${b.pickupDate || '—'} at ${b.pickupTime || '—'} is confirmed.\n\nThank you!\nCharterHouseCars Team`;
         const phone = (b.phone || "").replace(/\D/g, "");
-        if (!phone) {
-          alert("No valid phone number.");
-          return;
-        }
-        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-        window.open(url, "_blank");
+        if (!phone) return alert("No valid phone");
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
       }
 
-      // Email - opens compose screen with prefilled To, subject, body
-      function sendEmail(email, name) {
-        const subject = "Your CharterHouseCars Booking Confirmation";
+      function sendEmail(email, name = "Customer") {
+        const subject = "CharterHouseCars Booking Confirmation";
         const body = `Dear ${name},
 
-Your booking has been confirmed.
+Your booking is now confirmed.
 
-Details:
-Vehicle: [will be visible in your email app]
-Date: [will be visible in your email app]
-Time: [will be visible in your email app]
+We look forward to serving you.
 
-We look forward to serving you!
+If you have questions, reply to this email.
 
 Best regards,
 CharterHouseCars Team`;
 
-        
+        const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailto, "_blank");
+      }
+
+      function sendSMS(phone, name = "Customer") {
+        const cleanPhone = phone.replace(/\D/g, ''); // Remove non-digits
+        if (!cleanPhone || cleanPhone.length < 9) { // Basic UK validation (e.g., 07xxx...)
+          alert("Invalid or missing UK phone number for SMS");
+          return;
+        }
+
+        // Simple UK-focused confirmation message
+        const message = `Dear ${name}, your CharterHouseCars booking is confirmed. Thank you for choosing us! Reply if needed.`;
+
+        // sms: URI opens default SMS app (Messages on Android, etc.)
+        // For UK, phone should be in international format: +447xxxxxxxxx
+        let smsUri = `sms:${cleanPhone.startsWith('44') ? '+' + cleanPhone : '+44' + cleanPhone}?body=${encodeURIComponent(message)}`;
+
+        window.open(smsUri, "_blank");
       }
     </script>
   </body>
