@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CharterHouseCars Admin Dashboard</title>
     <link rel="manifest" href="manifest.json" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
       :root {
         --primary: #1a1f36;
@@ -23,10 +20,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          system-ui,
-          -apple-system,
-          sans-serif;
+        font-family: system-ui, -apple-system, sans-serif;
       }
       body {
         background: var(--light);
@@ -55,6 +49,10 @@
         padding: 0.6rem 1.2rem;
         border-radius: 6px;
         cursor: pointer;
+        transition: background 0.2s;
+      }
+      header button:hover {
+        background: var(--accent-light);
       }
       main {
         max-width: 1400px;
@@ -74,7 +72,7 @@
         font-size: 0.95rem;
       }
 
-      /* ────────────── RESPONSIVE TABLE ────────────── */
+      /* Responsive Table */
       table {
         width: 100%;
         border-collapse: collapse;
@@ -83,8 +81,7 @@
         overflow: hidden;
         box-shadow: var(--shadow);
       }
-      th,
-      td {
+      th, td {
         padding: 0.9rem 1rem;
         text-align: left;
         border-bottom: 1px solid var(--border);
@@ -95,7 +92,6 @@
         font-weight: 600;
         text-transform: uppercase;
         font-size: 0.85rem;
-        letter-spacing: 0.5px;
       }
       tr:hover {
         background: rgba(255, 107, 53, 0.05);
@@ -124,46 +120,23 @@
         opacity: 0.9;
         transform: translateY(-1px);
       }
-      .edit-btn {
-        background: #3b82f6;
-      }
-      .delete-btn {
-        background: #ef4444;
-      }
-      .whatsapp-btn {
-        background: #22c55e;
-      }
-      .email-btn {
-        background: #ea580c;
-      }
-      .sms-btn {
-        background: #10b981;
-      }
+      .edit-btn    { background: #3b82f6; }
+      .delete-btn  { background: #ef4444; }
+      .whatsapp-btn{ background: #22c55e; }
+      .email-btn   { background: #ea580c; }
+      .sms-btn     { background: #10b981; }
 
-      /* ────────────── MOBILE RESPONSIVE TABLE (card style) ────────────── */
+      /* Mobile Responsive Table (card style) */
       @media screen and (max-width: 768px) {
-        .search-container {
-          text-align: center;
-        }
-        table,
-        thead,
-        tbody,
-        th,
-        td,
-        tr {
-          display: block;
-        }
-        thead tr {
-          position: absolute;
-          top: -9999px;
-          left: -9999px;
-        }
+        .search-container { text-align: center; }
+        table, thead, tbody, th, td, tr { display: block; }
+        thead tr { position: absolute; top: -9999px; left: -9999px; }
         tr {
           margin-bottom: 1.5rem;
           border: 1px solid #d1d5db;
           border-radius: 10px;
           background: white;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
         td {
           border: none;
@@ -174,9 +147,7 @@
           display: flex;
           align-items: center;
         }
-        td:last-child {
-          border-bottom: none;
-        }
+        td:last-child { border-bottom: none; }
         td::before {
           position: absolute;
           top: 50%;
@@ -199,7 +170,7 @@
       #login-container {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.75);
+        background: rgba(0,0,0,0.75);
         z-index: 9999;
         display: flex;
         justify-content: center;
@@ -211,7 +182,7 @@
         border-radius: 12px;
         width: 90%;
         max-width: 380px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
       }
       #login-form input {
         width: 100%;
@@ -221,19 +192,32 @@
         border-radius: 6px;
         font-size: 1rem;
       }
+      #login-form button {
+        width: 100%;
+        padding: 0.9rem;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      #login-form button:hover {
+        background: var(--accent);
+      }
 
       .edit-modal {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0,0,0,0.6);
         z-index: 2000;
         display: none;
         justify-content: center;
         align-items: center;
       }
-      .edit-modal.active {
-        display: flex;
-      }
+      .edit-modal.active { display: flex; }
       .edit-content {
         background: white;
         padding: 1.8rem;
@@ -257,17 +241,13 @@
         font-weight: 600;
         color: #334155;
       }
-      .edit-content input,
-      .edit-content textarea {
+      .edit-content input, .edit-content textarea {
         width: 100%;
         padding: 0.7rem;
         border: 1px solid #d1d5db;
         border-radius: 6px;
       }
-      .edit-content textarea {
-        min-height: 90px;
-        resize: vertical;
-      }
+      .edit-content textarea { min-height: 90px; resize: vertical; }
       .edit-content button {
         margin-top: 1.5rem;
         width: 100%;
@@ -279,19 +259,32 @@
         font-weight: 600;
         cursor: pointer;
       }
+      .edit-content button i {
+        margin-right: 0.5rem;
+      }
+
+      #enableAlerts {
+        text-align: center;
+        margin: 1.5rem 0;
+        display: none;
+      }
+      #enableAlerts button {
+        padding: 0.9rem 1.8rem;
+        background: #10b981;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
+
     <div id="login-container">
       <form id="login-form">
         <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
-        <input
-          type="password"
-          id="adminPassword"
-          placeholder="Enter password"
-          required
-          autocomplete="off"
-        />
+        <input type="password" id="adminPassword" placeholder="Enter password" required autocomplete="off" />
         <button type="submit">Login</button>
       </form>
     </div>
@@ -323,6 +316,15 @@
         </thead>
         <tbody></tbody>
       </table>
+
+      <div id="enableAlerts">
+        <button onclick="enableAudioAndVibration()">
+          Enable Sound & Vibration Alerts
+        </button>
+        <p style="margin-top:0.6rem; font-size:0.9rem; color:#64748b;">
+          Tap once to allow notifications when new bookings arrive
+        </p>
+      </div>
     </main>
 
     <div class="edit-modal" id="editModal">
@@ -338,233 +340,324 @@
         <label>Time</label><input type="time" id="editTime" />
         <label>Vehicle</label><input type="text" id="editVehicle" />
         <label>Special Requests</label><textarea id="editRequests"></textarea>
-        <button id="saveEditBtn">Save Changes</button>
+        <button id="saveEditBtn"><i class="fas fa-check"></i> Save Changes</button>
       </div>
     </div>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBhEqtkjqt-_KCRCMmweX4RfySyVZ3OK2E",
-    authDomain: "charterhousecars-5631d.firebaseapp.com",
-    databaseURL: "https://charterhousecars-5631d-default-rtdb.firebaseio.com",
-    projectId: "charterhousecars-5631d",
-    storageBucket: "charterhousecars-5631d.appspot.com",
-    messagingSenderId: "227890687089",
-    appId: "1:227890687089:web:d656b58e6720a42ec2ffd0",
-  };
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
 
-  const PASSWORD = "Woking1@";
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBhEqtkjqt-_KCRCMmweX4RfySyVZ3OK2E",
+        authDomain: "charterhousecars-5631d.firebaseapp.com",
+        databaseURL: "https://charterhousecars-5631d-default-rtdb.firebaseio.com",
+        projectId: "charterhousecars-5631d",
+        storageBucket: "charterhousecars-5631d.appspot.com",
+        messagingSenderId: "227890687089",
+        appId: "1:227890687089:web:d656b58e6720a42ec2ffd0",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
 
-  // ────────────────────────────────────────────────
-  // Login / Logout
-  // ────────────────────────────────────────────────
-  const loginContainer = document.getElementById("login-container");
-  const loginForm = document.getElementById("login-form");
-  const logoutBtn = document.getElementById("logoutBtn");
+      const PASSWORD = "Woking1@";
 
-  loginForm.addEventListener("submit", e => {
-    e.preventDefault();
-    if (document.getElementById("adminPassword").value.trim() === PASSWORD) {
-      sessionStorage.setItem("adminLoggedIn", "true");
-      loginContainer.style.display = "none";
-      loadBookings();
-    } else {
-      alert("Wrong password");
-    }
-  });
+      // ────────────────────────────────────────────────
+      // Notification Setup
+      // ────────────────────────────────────────────────
+      let notificationSound = null;
+      let knownBookingKeys = new Set();
 
-  logoutBtn.addEventListener("click", () => {
-    sessionStorage.removeItem("adminLoggedIn");
-    location.reload();
-  });
-
-  if (sessionStorage.getItem("adminLoggedIn") === "true") {
-    loginContainer.style.display = "none";
-    loadBookings();
-  }
-
-  // ────────────────────────────────────────────────
-  // Load bookings + responsive table rendering
-  // ────────────────────────────────────────────────
-  const tableBody = document.querySelector("#bookingTable tbody");
-
-  function loadBookings() {
-    database.ref("bookings").on("value", snapshot => {
-      tableBody.innerHTML = "";
-      const bookings = snapshot.val() || {};
-
-      if (Object.keys(bookings).length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:2rem;">No bookings found</td></tr>';
-        return;
+      try {
+        notificationSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-quick-positive-notification-2070.mp3");
+        notificationSound.preload = "auto";
+        notificationSound.volume = 0.7;
+      } catch (e) {
+        console.warn("Audio init failed", e);
       }
 
-      Object.entries(bookings).forEach(([key, b]) => {
-        const fullName = [b.firstName, b.lastName].filter(Boolean).join(" ") || "—";
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td data-label="Name">${fullName}</td>
-          <td data-label="Email">${b.email || "—"}</td>
-          <td data-label="Phone">${b.phone || "—"}</td>
-          <td data-label="Pickup">${b.pickupLocation || "—"}</td>
-          <td data-label="Drop-off">${b.dropoffLocation || "—"}</td>
-          <td data-label="Date">${b.pickupDate || "—"}</td>
-          <td data-label="Time">${b.pickupTime || "—"}</td>
-          <td data-label="Vehicle">${b.vehicle || "—"}</td>
-          <td data-label="Requests">${b.specialRequests || "—"}</td>
-          <td data-label="Actions">
-            <div class="actions">
-              <button class="btn-action edit-btn" data-key="${key}"><i class="fas fa-edit"></i></button>
-              <button class="btn-action delete-btn" data-key="${key}"><i class="fas fa-trash-alt"></i></button>
-              <button class="btn-action whatsapp-btn" data-key="${key}"><i class="fab fa-whatsapp"></i></button>
-              <button class="btn-action email-btn" data-email="${b.email || ''}" data-name="${fullName}"><i class="fas fa-envelope"></i></button>
-              <button class="btn-action sms-btn" data-phone="${b.phone || ''}" data-name="${fullName}"><i class="fas fa-sms"></i></button>
-            </div>
-          </td>`;
-        tableBody.appendChild(row);
-      });
-    });
-  }
-
-  // ────────────────────────────────────────────────
-  // Event delegation – ALL buttons including EDIT
-  // ────────────────────────────────────────────────
-  tableBody.addEventListener("click", e => {
-    const btn = e.target.closest("button");
-    if (!btn) return;
-
-    const key = btn.dataset.key;
-    const email = btn.dataset.email;
-    const phone = btn.dataset.phone;
-    const name = btn.dataset.name;
-
-    if (btn.classList.contains("edit-btn")) {
-      openEditModal(key);
-    }
-    if (btn.classList.contains("delete-btn")) {
-      if (confirm("Delete this booking?")) {
-        database.ref("bookings/" + key).remove();
+      if (Notification.permission === "default") {
+        Notification.requestPermission();
       }
-    }
-    if (btn.classList.contains("whatsapp-btn")) {
-      database.ref("bookings/" + key).once("value", snap => {
-        const b = snap.val();
-        if (b?.phone) sendWhatsApp(b);
-        else alert("No phone number");
+
+      // ────────────────────────────────────────────────
+      // Login / Logout
+      // ────────────────────────────────────────────────
+      const loginContainer = document.getElementById("login-container");
+      const loginForm = document.getElementById("login-form");
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      loginForm.addEventListener("submit", e => {
+        e.preventDefault();
+        if (document.getElementById("adminPassword").value.trim() === PASSWORD) {
+          sessionStorage.setItem("adminLoggedIn", "true");
+          loginContainer.style.display = "none";
+          loadBookings();
+        } else {
+          alert("Wrong password");
+        }
       });
-    }
-    if (btn.classList.contains("email-btn")) {
-      if (email) sendEmail(email, name);
-      else alert("No email address");
-    }
-    if (btn.classList.contains("sms-btn")) {
-      if (phone) sendSMS(phone, name);
-      else alert("No phone number for SMS");
-    }
-  });
 
-  // ────────────────────────────────────────────────
-  // EDIT MODAL LOGIC – FIXED & COMPLETE
-  // ────────────────────────────────────────────────
-  const editModal = document.getElementById("editModal");
-  const editClose = document.getElementById("editClose");
-  const saveEditBtn = document.getElementById("saveEditBtn");
-  let currentEditKey = "";
-
-  function openEditModal(key) {
-    currentEditKey = key;
-    database.ref("bookings/" + key).once("value", snapshot => {
-      const b = snapshot.val() || {};
-      document.getElementById("editName").value     = [b.firstName || "", b.lastName || ""].filter(Boolean).join(" ");
-      document.getElementById("editEmail").value    = b.email || "";
-      document.getElementById("editPhone").value    = b.phone || "";
-      document.getElementById("editPickup").value   = b.pickupLocation || "";
-      document.getElementById("editDropoff").value  = b.dropoffLocation || "";
-      document.getElementById("editDate").value     = b.pickupDate || "";
-      document.getElementById("editTime").value     = b.pickupTime || "";
-      document.getElementById("editVehicle").value  = b.vehicle || "";
-      document.getElementById("editRequests").value = b.specialRequests || "";
-      editModal.classList.add("active");
-    }).catch(err => {
-      console.error("Error loading booking for edit:", err);
-      alert("Could not load booking data");
-    });
-  }
-
-  editClose.addEventListener("click", () => {
-    editModal.classList.remove("active");
-  });
-
-  saveEditBtn.addEventListener("click", () => {
-    const nameParts = document.getElementById("editName").value.trim().split(/\s+/);
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts.slice(1).join(" ") || "";
-
-    const updates = {
-      firstName,
-      lastName,
-      email:     document.getElementById("editEmail").value.trim(),
-      phone:     document.getElementById("editPhone").value.trim(),
-      pickupLocation: document.getElementById("editPickup").value.trim(),
-      dropoffLocation: document.getElementById("editDropoff").value.trim(),
-      pickupDate: document.getElementById("editDate").value,
-      pickupTime: document.getElementById("editTime").value,
-      vehicle:   document.getElementById("editVehicle").value.trim(),
-      specialRequests: document.getElementById("editRequests").value.trim()
-    };
-
-    database.ref("bookings/" + currentEditKey).update(updates)
-      .then(() => {
-        editModal.classList.remove("active");
-        alert("Booking updated successfully!");
-      })
-      .catch(err => {
-        console.error("Update failed:", err);
-        alert("Failed to save changes: " + err.message);
+      logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("adminLoggedIn");
+        location.reload();
       });
-  });
 
-  // ────────────────────────────────────────────────
-  // Search filter
-  // ────────────────────────────────────────────────
-  document.getElementById("searchInput").addEventListener("input", e => {
-    const term = e.target.value.toLowerCase().trim();
-    document.querySelectorAll("#bookingTable tbody tr").forEach(row => {
-      row.style.display = row.textContent.toLowerCase().includes(term) ? "" : "none";
-    });
-  });
+      if (sessionStorage.getItem("adminLoggedIn") === "true") {
+        loginContainer.style.display = "none";
+        loadBookings();
+        document.getElementById("enableAlerts").style.display = "block";
+      }
 
-  // ────────────────────────────────────────────────
-  // WhatsApp, Email, SMS functions (unchanged)
-  // ────────────────────────────────────────────────
-  function sendWhatsApp(b) {
-    const name = b.firstName || "Customer";
-    const msg = `Hello ${name},\n\nYour CharterHouseCars booking for ${b.vehicle || "a vehicle"} on ${b.pickupDate || "—"} at ${b.pickupTime || "—"} is confirmed.\n\nThank you!\nCharterHouseCars Team`;
-    const phone = (b.phone || "").replace(/\D/g, "");
-    if (!phone) return alert("No valid phone");
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
-  }
+      // ────────────────────────────────────────────────
+      // Enable Audio & Vibration (user gesture required)
+      // ────────────────────────────────────────────────
+      function enableAudioAndVibration() {
+        if (notificationSound) {
+          notificationSound.volume = 0.01;
+          notificationSound.play().catch(() => {});
+          setTimeout(() => {
+            notificationSound.pause();
+            notificationSound.currentTime = 0;
+            notificationSound.volume = 0.7;
+          }, 100);
+        }
 
-  function sendEmail(email, name = "Customer") {
-    const subject = "CharterHouseCars Booking Confirmation";
-    const body = `Dear ${name},\n\nYour booking is now confirmed.\n\nWe look forward to serving you.\n\nIf you have questions, reply to this email.\n\nBest regards,\nCharterHouseCars Team`;
-    const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailto, "_blank");
-  }
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
 
-  function sendSMS(phone, name = "Customer") {
-    const cleanPhone = phone.replace(/\D/g, "");
-    if (!cleanPhone || cleanPhone.length < 9) {
-      alert("Invalid or missing phone number for SMS");
-      return;
-    }
-    const message = `Dear ${name}, your CharterHouseCars booking is confirmed. Thank you!`;
-    let smsUri = `sms:${cleanPhone.startsWith("44") ? "+" + cleanPhone : "+44" + cleanPhone}?body=${encodeURIComponent(message)}`;
-    window.open(smsUri, "_blank");
-  }
-</script>
+        if (Notification.permission !== "granted") {
+          Notification.requestPermission();
+        }
+
+        alert("Alerts enabled! Sound & vibration should now work for new bookings while this tab is open.");
+        document.getElementById("enableAlerts").style.display = "none";
+      }
+
+      // ────────────────────────────────────────────────
+      // Load Bookings + New Booking Detection
+      // ────────────────────────────────────────────────
+      const tableBody = document.querySelector("#bookingTable tbody");
+
+      function loadBookings() {
+        database.ref("bookings").on("value", snapshot => {
+          tableBody.innerHTML = "";
+          const bookings = snapshot.val() || {};
+
+          const currentKeys = new Set(Object.keys(bookings));
+          const newKeys = [...currentKeys].filter(k => !knownBookingKeys.has(k));
+
+          knownBookingKeys = currentKeys;
+
+          newKeys.forEach(key => {
+            const b = bookings[key];
+            notifyNewBooking(b, key);
+          });
+
+          if (Object.keys(bookings).length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:2rem;">No bookings yet</td></tr>';
+            return;
+          }
+
+          Object.entries(bookings).forEach(([key, b]) => {
+            const fullName = [b.firstName, b.lastName].filter(Boolean).join(" ") || "—";
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td data-label="Name">${fullName}</td>
+              <td data-label="Email">${b.email || "—"}</td>
+              <td data-label="Phone">${b.phone || "—"}</td>
+              <td data-label="Pickup">${b.pickupLocation || "—"}</td>
+              <td data-label="Drop-off">${b.dropoffLocation || "—"}</td>
+              <td data-label="Date">${b.pickupDate || "—"}</td>
+              <td data-label="Time">${b.pickupTime || "—"}</td>
+              <td data-label="Vehicle">${b.vehicle || "—"}</td>
+              <td data-label="Requests">${b.specialRequests || "—"}</td>
+              <td data-label="Actions">
+                <div class="actions">
+                  <button class="btn-action edit-btn" data-key="${key}"><i class="fas fa-edit"></i></button>
+                  <button class="btn-action delete-btn" data-key="${key}"><i class="fas fa-trash-alt"></i></button>
+                  <button class="btn-action whatsapp-btn" data-key="${key}"><i class="fab fa-whatsapp"></i></button>
+                  <button class="btn-action email-btn" data-email="${b.email || ''}" data-name="${fullName}"><i class="fas fa-envelope"></i></button>
+                  <button class="btn-action sms-btn" data-phone="${b.phone || ''}" data-name="${fullName}"><i class="fas fa-sms"></i></button>
+                </div>
+              </td>`;
+            tableBody.appendChild(row);
+          });
+        });
+      }
+
+      function notifyNewBooking(b, key) {
+        const name = [b.firstName, b.lastName].filter(Boolean).join(" ") || "New customer";
+        const shortMsg = `New booking from ${name}! Vehicle: ${b.vehicle || '?'} on ${b.pickupDate || '?'}`;
+
+        if (Notification.permission === "granted") {
+          new Notification("New Booking!", {
+            body: shortMsg,
+            icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+            tag: `booking-${key}`
+          });
+        }
+
+        if (notificationSound) {
+          notificationSound.currentTime = 0;
+          notificationSound.play().catch(() => {});
+        }
+
+        if (navigator.vibrate) {
+          navigator.vibrate([150, 80, 150, 80, 150]);
+        }
+
+        if (document.hidden) {
+          let count = 0;
+          const original = document.title;
+          const blink = setInterval(() => {
+            document.title = count % 2 === 0 ? "NEW BOOKING!" : original;
+            count++;
+            if (count > 14) {
+              document.title = original;
+              clearInterval(blink);
+            }
+          }, 900);
+        }
+      }
+
+      // Event delegation (unchanged except for completeness)
+      tableBody.addEventListener("click", e => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+
+        const key = btn.dataset.key;
+        const email = btn.dataset.email;
+        const phone = btn.dataset.phone;
+        const name = btn.dataset.name;
+
+        if (btn.classList.contains("edit-btn")) openEditModal(key);
+        if (btn.classList.contains("delete-btn") && confirm("Delete booking?")) {
+          database.ref("bookings/" + key).remove();
+        }
+        if (btn.classList.contains("whatsapp-btn")) {
+          database.ref("bookings/" + key).once("value", snap => {
+            const b = snap.val();
+            if (b?.phone) sendWhatsApp(b);
+            else alert("No phone number");
+          });
+        }
+        if (btn.classList.contains("email-btn")) {
+          if (email) sendEmail(email, name);
+          else alert("No email address");
+        }
+        if (btn.classList.contains("sms-btn")) {
+          if (phone) sendSMS(phone, name);
+          else alert("No phone number for SMS");
+        }
+      });
+
+      // Edit Modal Logic
+      const editModal = document.getElementById("editModal");
+      const editClose = document.getElementById("editClose");
+      const saveEditBtn = document.getElementById("saveEditBtn");
+      let currentEditKey = "";
+
+      function openEditModal(key) {
+        currentEditKey = key;
+        database.ref("bookings/" + key).once("value", snapshot => {
+          const b = snapshot.val() || {};
+          document.getElementById("editName").value = [b.firstName || "", b.lastName || ""].filter(Boolean).join(" ");
+          document.getElementById("editEmail").value = b.email || "";
+          document.getElementById("editPhone").value = b.phone || "";
+          document.getElementById("editPickup").value = b.pickupLocation || "";
+          document.getElementById("editDropoff").value = b.dropoffLocation || "";
+          document.getElementById("editDate").value = b.pickupDate || "";
+          document.getElementById("editTime").value = b.pickupTime || "";
+          document.getElementById("editVehicle").value = b.vehicle || "";
+          document.getElementById("editRequests").value = b.specialRequests || "";
+          editModal.classList.add("active");
+        });
+      }
+
+      editClose.addEventListener("click", () => editModal.classList.remove("active"));
+
+      saveEditBtn.addEventListener("click", () => {
+        const nameParts = document.getElementById("editName").value.trim().split(/\s+/);
+        const firstName = nameParts[0] || "";
+        const lastName = nameParts.slice(1).join(" ") || "";
+
+        const updates = {
+          firstName,
+          lastName,
+          email: document.getElementById("editEmail").value.trim(),
+          phone: document.getElementById("editPhone").value.trim(),
+          pickupLocation: document.getElementById("editPickup").value.trim(),
+          dropoffLocation: document.getElementById("editDropoff").value.trim(),
+          pickupDate: document.getElementById("editDate").value,
+          pickupTime: document.getElementById("editTime").value,
+          vehicle: document.getElementById("editVehicle").value.trim(),
+          specialRequests: document.getElementById("editRequests").value.trim()
+        };
+
+        database.ref("bookings/" + currentEditKey).update(updates)
+          .then(() => {
+            editModal.classList.remove("active");
+            alert("Booking updated successfully!");
+          })
+          .catch(err => alert("Failed to save: " + err.message));
+      });
+
+      // Search
+      document.getElementById("searchInput").addEventListener("input", e => {
+        const term = e.target.value.toLowerCase().trim();
+        document.querySelectorAll("#bookingTable tbody tr").forEach(row => {
+          row.style.display = row.textContent.toLowerCase().includes(term) ? "" : "none";
+        });
+      });
+
+      function sendWhatsApp(b) {
+        const name = b.firstName || "Customer";
+        const msg = `Hello ${name},\n\nYour CharterHouseCars booking for ${b.vehicle || "a vehicle"} on ${b.pickupDate || "—"} at ${b.pickupTime || "—"} is confirmed.\n\nThank you!\nCharterHouseCars Team`;
+        const phone = (b.phone || "").replace(/\D/g, "");
+        if (!phone) return alert("No valid phone");
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
+      }
+
+      function sendEmail(email, name = "Customer") {
+        const subject = "✅ CharterHouseCars Booking Confirmation";
+        const body = `
+Dear ${name},
+
+✅ Your booking is now confirmed!
+
+We look forward to serving you.
+
+Booking details reminder:
+• Vehicle:        ${booking.vehicle || "—"}
+• Pickup:         ${booking.pickupLocation || "—"}
+• Drop-off:       ${booking.dropoffLocation || "—"}
+• Date:           ${booking.pickupDate || "—"}
+• Time:           ${booking.pickupTime || "—"}
+
+If you have any questions or need assistance,
+please reply to this email ✅
+
+Thank you for choosing CharterHouseCars!
+
+Best regards,  
+CharterHouseCars Team
+        `.trim();
+
+        const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailto, "_blank");
+      }
+
+      function sendSMS(phone, name = "Customer") {
+        const cleanPhone = phone.replace(/\D/g, "");
+        if (!cleanPhone || cleanPhone.length < 9) {
+          alert("Invalid or missing phone number for SMS");
+          return;
+        }
+        const message = `Dear ${name}, your CharterHouseCars booking is confirmed. Thank you!`;
+        let smsUri = `sms:${cleanPhone.startsWith("44") ? "+" + cleanPhone : "+44" + cleanPhone}?body=${encodeURIComponent(message)}`;
+        window.open(smsUri, "_blank");
+      }
     </script>
   </body>
 </html>
