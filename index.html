@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CharterHouseCars Admin Dashboard</title>
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
       :root {
         --primary: #1a1f36;
@@ -13,103 +18,325 @@
         --accent-light: #ff8c5a;
         --text: #2d3748;
         --light: #f8f9fa;
-        --shadow: 0 6px 20px rgba(0,0,0,0.1);
+        --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         --transition: all 0.3s ease;
       }
-      * { margin:0; padding:0; box-sizing:border-box; font-family:Poppins,sans-serif; }
-      body { background:var(--light); color:var(--text); line-height:1.5; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Poppins, sans-serif;
+      }
+      body {
+        background: var(--light);
+        color: var(--text);
+        line-height: 1.5;
+      }
       header {
-        background:var(--primary); color:white; padding:1rem 1.5rem;
-        display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
+        background: var(--primary);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
       }
-      header h1 { font-size:1.4rem; display:flex; align-items:center; gap:8px; }
+      header h1 {
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
       header button {
-        background:var(--accent); color:white; border:none; padding:8px 14px;
-        border-radius:6px; cursor:pointer; font-size:0.95rem;
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.95rem;
       }
-      header button:hover { background:var(--accent-light); }
-      main { max-width:1200px; margin:1.5rem auto; padding:0 15px; }
-      .search-container { margin-bottom:1rem; text-align:right; }
+      header button:hover {
+        background: var(--accent-light);
+      }
+      main {
+        max-width: 1200px;
+        margin: 1.5rem auto;
+        padding: 0 15px;
+      }
+      .search-container {
+        margin-bottom: 1rem;
+        text-align: right;
+      }
       .search-container input {
-        padding:9px 14px; width:260px; max-width:100%; border:1px solid #ccc;
-        border-radius:6px; font-size:0.95rem;
+        padding: 9px 14px;
+        width: 260px;
+        max-width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 0.95rem;
       }
       table {
-        width:100%; border-collapse:collapse; background:white;
-        box-shadow:var(--shadow); border-radius:8px; overflow:hidden;
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: var(--shadow);
+        border-radius: 8px;
+        overflow: hidden;
       }
-      th, td { padding:11px 13px; text-align:left; border-bottom:1px solid #eee; }
-      th { background:var(--primary); color:white; font-weight:600; }
-      tr:hover { background:rgba(255,107,53,0.07); }
-      .actions { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+      th,
+      td {
+        padding: 11px 13px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+      th {
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+      }
+      tr:hover {
+        background: rgba(255, 107, 53, 0.07);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+      }
       .btn-action {
-        border:none; padding:8px 12px; border-radius:5px; cursor:pointer;
-        color:white; font-size:0.9rem; min-width:42px; min-height:42px;
-        display:inline-flex; align-items:center; justify-content:center;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        font-size: 0.9rem;
+        min-width: 42px;
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
-      .edit-btn    { background:#0069d9; } .edit-btn:hover    { background:#0056b3; }
-      .delete-btn  { background:#dc3545; } .delete-btn:hover  { background:#c82333; }
-      .whatsapp-btn{ background:#25d366; } .whatsapp-btn:hover{ background:#20b358; }
-      .email-btn   { background:#db4437; } .email-btn:hover   { background:#c1351f; }
-      .sms-btn     { background:#4CAF50; } .sms-btn:hover     { background:#388E3C; }
+      .edit-btn {
+        background: #0069d9;
+      }
+      .edit-btn:hover {
+        background: #0056b3;
+      }
+      .delete-btn {
+        background: #dc3545;
+      }
+      .delete-btn:hover {
+        background: #c82333;
+      }
+      .whatsapp-btn {
+        background: #25d366;
+      }
+      .whatsapp-btn:hover {
+        background: #20b358;
+      }
+      .email-btn {
+        background: #db4437;
+      }
+      .email-btn:hover {
+        background: #c1351f;
+      }
+      .sms-btn {
+        background: #4caf50;
+      }
+      .sms-btn:hover {
+        background: #388e3c;
+      }
+      .pdf-btn {
+        background: #ef4444;
+      }
+      .pdf-btn:hover {
+        background: #dc2626;
+      }
+      .all-pdf-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #6366f1;
+        color: white;
+        border: none;
+        padding: 1rem 1.5rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        z-index: 1000;
+        display: none;
+        transition: all 0.3s;
+      }
+      .all-pdf-btn:hover {
+        background: #4f46e5;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+      }
 
       #login-container {
-        position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:10000;
-        display:flex; justify-content:center; align-items:center;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       #login-form {
-        background:white; padding:2rem; border-radius:10px; width:90%; max-width:380px;
-        box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 380px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       }
-      #login-form h2 { text-align:center; margin-bottom:1.2rem; color:var(--primary); }
+      #login-form h2 {
+        text-align: center;
+        margin-bottom: 1.2rem;
+        color: var(--primary);
+      }
       #login-form input {
-        width:100%; padding:12px; margin-bottom:1rem; border:1px solid #ccc;
-        border-radius:6px; font-size:1rem;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
       }
       #login-form button {
-        width:100%; padding:12px; background:var(--primary); color:white;
-        border:none; border-radius:6px; cursor:pointer; font-size:1.05rem;
+        width: 100%;
+        padding: 12px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.05rem;
       }
 
       .edit-modal {
-        position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:2000;
-        display:none; justify-content:center; align-items:center;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 2000;
+        display: none;
+        justify-content: center;
+        align-items: center;
       }
-      .edit-modal.active { display:flex; }
+      .edit-modal.active {
+        display: flex;
+      }
       .edit-content {
-        background:white; padding:1.8rem; border-radius:10px; width:90%; max-width:500px;
-        max-height:90vh; overflow-y:auto; box-shadow:var(--shadow); position:relative;
+        background: white;
+        padding: 1.8rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow);
+        position: relative;
       }
-      .edit-close { position:absolute; top:10px; right:15px; font-size:2.2rem; cursor:pointer; color:#555; }
-      .edit-content label { display:block; margin:10px 0 4px; font-weight:600; color:#444; }
-      .edit-content input, .edit-content textarea {
-        width:100%; padding:9px 12px; border:1px solid #ccc; border-radius:5px;
+      .edit-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 2.2rem;
+        cursor: pointer;
+        color: #555;
       }
-      .edit-content textarea { min-height:80px; resize:vertical; }
+      .edit-content label {
+        display: block;
+        margin: 10px 0 4px;
+        font-weight: 600;
+        color: #444;
+      }
+      .edit-content input,
+      .edit-content textarea {
+        width: 100%;
+        padding: 9px 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .edit-content textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
       .edit-content button {
-        margin-top:1.4rem; width:100%; padding:12px; background:var(--accent);
-        color:white; border:none; border-radius:6px; cursor:pointer; font-size:1.05rem;
+        margin-top: 1.4rem;
+        width: 100%;
+        padding: 12px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.05rem;
       }
 
-      @media (max-width:768px) {
-        table, thead, tbody, th, td, tr { display:block; }
-        thead tr { position:absolute; top:-9999px; left:-9999px; }
-        tr { margin-bottom:1.2rem; border:1px solid #ddd; border-radius:8px; }
-        td { border:none; position:relative; padding-left:48%; min-height:44px; display:flex; align-items:center; }
-        td::before {
-          position:absolute; left:12px; width:45%; font-weight:600;
-          content:attr(data-label); color:var(--primary);
+      @media (max-width: 768px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
         }
-        .actions { padding:10px; justify-content:center; border-top:1px solid #eee; }
+        thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+        tr {
+          margin-bottom: 1.2rem;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+        }
+        td {
+          border: none;
+          position: relative;
+          padding-left: 48%;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+        }
+        td::before {
+          position: absolute;
+          left: 12px;
+          width: 45%;
+          font-weight: 600;
+          content: attr(data-label);
+          color: var(--primary);
+        }
+        .actions {
+          padding: 10px;
+          justify-content: center;
+          border-top: 1px solid #eee;
+        }
+        .all-pdf-btn {
+          bottom: 20px;
+          right: 20px;
+          padding: 0.9rem 1.3rem;
+          font-size: 0.95rem;
+        }
       }
     </style>
   </head>
   <body>
-
     <div id="login-container">
       <form id="login-form">
         <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
-        <input type="password" id="adminPassword" placeholder="Enter password" required autocomplete="off" />
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="Enter password"
+          required
+          autocomplete="off"
+        />
         <button type="submit">Login</button>
       </form>
     </div>
@@ -123,6 +350,8 @@
       <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search bookings..." />
       </div>
+
+      <div id="no-new-message">No new bookings yet</div>
 
       <table id="bookingTable">
         <thead>
@@ -143,6 +372,11 @@
       </table>
     </main>
 
+    <!-- Sticky Export ALL to PDF Button -->
+    <button id="export-all-pdf-btn" class="all-pdf-btn">
+      <i class="fas fa-file-pdf"></i> Export All Bookings
+    </button>
+
     <div class="edit-modal" id="editModal">
       <div class="edit-content">
         <span class="edit-close" id="editClose">×</span>
@@ -162,11 +396,14 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+      const { jsPDF } = window.jspdf;
       const firebaseConfig = {
         apiKey: "AIzaSyBhEqtkjqt-_KCRCMmweX4RfySyVZ3OK2E",
         authDomain: "charterhousecars-5631d.firebaseapp.com",
-        databaseURL: "https://charterhousecars-5631d-default-rtdb.firebaseio.com",
+        databaseURL:
+          "https://charterhousecars-5631d-default-rtdb.firebaseio.com",
         projectId: "charterhousecars-5631d",
         storageBucket: "charterhousecars-5631d.appspot.com",
         messagingSenderId: "227890687089",
@@ -180,14 +417,17 @@
       const loginContainer = document.getElementById("login-container");
       const loginForm = document.getElementById("login-form");
       const logoutBtn = document.getElementById("logoutBtn");
+      const exportAllPdfBtn = document.getElementById("export-all-pdf-btn");
 
       function isLoggedIn() {
         return sessionStorage.getItem("adminLoggedIn") === "true";
       }
 
-      loginForm.addEventListener("submit", e => {
+      loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        if (document.getElementById("adminPassword").value.trim() === PASSWORD) {
+        if (
+          document.getElementById("adminPassword").value.trim() === PASSWORD
+        ) {
           sessionStorage.setItem("adminLoggedIn", "true");
           loginContainer.style.display = "none";
           loadBookings();
@@ -204,25 +444,55 @@
       if (isLoggedIn()) {
         loginContainer.style.display = "none";
         loadBookings();
+        exportAllPdfBtn.style.display = "block";
       }
 
       const tableBody = document.querySelector("#bookingTable tbody");
+      const newBookingStatus = document.getElementById("new-booking-status");
+
+      let initialKeys = new Set();
+      let readKeys = new Set();
+
+      function updateNewBookingCount() {
+        const newCount = document.querySelectorAll("tr.new-booking").length;
+        newBookingStatus.textContent =
+          newCount === 0
+            ? "No new bookings yet"
+            : `${newCount} new booking${newCount > 1 ? "s" : ""}`;
+        newBookingStatus.style.display = "block";
+      }
 
       function loadBookings() {
-        database.ref("bookings").on("value", snapshot => {
+        database.ref("bookings").on("value", (snapshot) => {
           tableBody.innerHTML = "";
           const bookings = snapshot.val() || {};
 
           if (Object.keys(bookings).length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:2rem;">No bookings yet</td></tr>';
+            tableBody.innerHTML =
+              '<tr><td colspan="10" style="text-align:center; padding:2rem;">No bookings yet</td></tr>';
+            newBookingStatus.style.display = "none";
             return;
           }
 
+          if (initialKeys.size === 0) {
+            Object.keys(bookings).forEach((k) => initialKeys.add(k));
+          }
+
           Object.entries(bookings).forEach(([key, b]) => {
-            const fullName = [b.firstName, b.lastName].filter(Boolean).join(" ") || "—";
+            const fullName =
+              [b.firstName, b.lastName].filter(Boolean).join(" ") || "—";
+            const isInitiallyOld = initialKeys.has(key);
+            const isRead = readKeys.has(key);
+            const isNew = !isInitiallyOld && !isRead;
+
             const row = document.createElement("tr");
+            if (isNew) row.classList.add("new-booking");
+
             row.innerHTML = `
-              <td data-label="Name">${fullName}</td>
+              <td data-label="Name">
+                ${fullName}
+                ${isNew ? '<span class="status-badge new-badge">New</span>' : '<span class="status-badge">Old</span>'}
+              </td>
               <td data-label="Email">${b.email || "—"}</td>
               <td data-label="Phone">${b.phone || "—"}</td>
               <td data-label="Pickup">${b.pickupLocation || "—"}</td>
@@ -233,33 +503,67 @@
               <td data-label="Requests">${b.specialRequests || "—"}</td>
               <td data-label="Actions">
                 <div class="actions">
-                  <button class="btn-action edit-btn"    data-key="${key}" title="Edit booking"><i class="fas fa-edit"></i></button>
-                  <button class="btn-action delete-btn"  data-key="${key}" title="Delete"><i class="fas fa-trash-alt"></i></button>
+                  <button class="btn-action edit-btn" data-key="${key}" title="Edit booking"><i class="fas fa-edit"></i></button>
+                  <button class="btn-action delete-btn" data-key="${key}" title="Delete"><i class="fas fa-trash-alt"></i></button>
                   <button class="btn-action whatsapp-btn" data-key="${key}" title="Send via WhatsApp"><i class="fab fa-whatsapp"></i></button>
-                  <button class="btn-action email-btn"   data-email="${b.email || ''}" data-name="${fullName}" title="Send via Email"><i class="fas fa-envelope"></i></button>
-                  <button class="btn-action sms-btn"     data-phone="${b.phone || ''}" data-name="${fullName}" title="Send via SMS (UK)"><i class="fas fa-sms"></i></button>
+                  <button class="btn-action email-btn" data-email="${b.email || ""}" data-name="${fullName}" title="Send via Email"><i class="fas fa-envelope"></i></button>
+                  <button class="btn-action sms-btn" data-phone="${b.phone || ""}" data-name="${fullName}" title="Send via SMS (UK)"><i class="fas fa-sms"></i></button>
+                  <button class="btn-action pdf-btn" data-key="${key}" data-booking='${JSON.stringify(b)}' title="Export Single Booking to PDF"><i class="fas fa-file-pdf"></i></button>
+                  ${isNew ? `<button class="btn-action mark-read-btn" data-key="${key}" title="Mark as read"><i class="fas fa-check"></i> Mark Read</button>` : ""}
                 </div>
               </td>`;
+
             tableBody.appendChild(row);
           });
+
+          updateNewBookingCount();
         });
       }
 
-      tableBody.addEventListener("click", e => {
+      tableBody.addEventListener("click", (e) => {
         const btn = e.target.closest("button");
         if (!btn) return;
 
-        const key   = btn.dataset.key;
+        const key = btn.dataset.key;
+
+        // Handle Mark as Read
+        if (btn.classList.contains("mark-read-btn")) {
+          readKeys.add(key);
+          const row = btn.closest("tr");
+          if (row) {
+            row.classList.remove("new-booking");
+            const nameTd = row.querySelector('td[data-label="Name"]');
+            if (nameTd) {
+              nameTd.innerHTML = nameTd.innerHTML
+                .replace("new-badge", "")
+                .replace("New", "Old");
+            }
+            btn.remove();
+          }
+          updateNewBookingCount();
+          return;
+        }
+
+        // Handle Single Booking PDF Export
+        if (btn.classList.contains("pdf-btn")) {
+          const bookingData = JSON.parse(btn.dataset.booking);
+          generateSingleBookingPDF(bookingData);
+          return;
+        }
+
         const email = btn.dataset.email;
         const phone = btn.dataset.phone;
-        const name  = btn.dataset.name;
+        const name = btn.dataset.name;
 
-        if (btn.classList.contains("edit-btn"))    openEditModal(key);
-        if (btn.classList.contains("delete-btn") && confirm("Delete booking?")) {
+        if (btn.classList.contains("edit-btn")) openEditModal(key);
+        if (
+          btn.classList.contains("delete-btn") &&
+          confirm("Delete booking?")
+        ) {
           database.ref("bookings/" + key).remove();
         }
         if (btn.classList.contains("whatsapp-btn")) {
-          database.ref("bookings/" + key).once("value", s => {
+          database.ref("bookings/" + key).once("value", (s) => {
             const b = s.val();
             if (b?.phone) sendWhatsApp(b);
             else alert("No phone number");
@@ -275,10 +579,255 @@
         }
       });
 
-      document.getElementById("searchInput").addEventListener("input", e => {
+      // Styled PDF for SINGLE booking
+      function generateSingleBookingPDF(b) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Header - dark blue background
+        doc.setFillColor(26, 31, 54);
+        doc.rect(0, 0, 210, 45, "F");
+        doc.setFontSize(22);
+        doc.setTextColor(255, 255, 255);
+        doc.text("CharterHouseCars", 105, 22, { align: "center" });
+        doc.setFontSize(14);
+        doc.text("Booking Confirmation", 105, 35, { align: "center" });
+
+        // Date generated
+        doc.setFontSize(10);
+        doc.setTextColor(150);
+        doc.text("Generated: " + new Date().toLocaleString(), 20, 52);
+
+        // Customer Info Section
+        doc.setFontSize(14);
+        doc.setTextColor(26, 31, 54);
+        doc.text("Customer Information", 20, 65);
+        doc.setLineWidth(0.5);
+        doc.setDrawColor(26, 31, 54);
+        doc.line(20, 68, 190, 68);
+
+        doc.setFontSize(11);
+        let y = 78;
+        doc.text(
+          `Name: ${b.firstName || ""} ${b.lastName || "Customer"}`,
+          25,
+          y,
+        );
+        y += 8;
+        doc.text(`Email: ${b.email || "—"}`, 25, y);
+        y += 8;
+        doc.text(`Phone: ${b.phone || "—"}`, 25, y);
+        y += 12;
+
+        // Journey Details
+        doc.setFontSize(14);
+        doc.text("Journey Details", 20, y);
+        y += 5;
+        doc.line(20, y, 190, y);
+        y += 8;
+
+        doc.setFontSize(11);
+        doc.text(`Vehicle: ${b.vehicle || "Not specified"}`, 25, y);
+        y += 8;
+        doc.text(`Pickup Location: ${b.pickupLocation || "—"}`, 25, y);
+        y += 8;
+        doc.text(`Drop-off Location: ${b.dropoffLocation || "—"}`, 25, y);
+        y += 8;
+        doc.text(`Pickup Date: ${b.pickupDate || "—"}`, 25, y);
+        y += 8;
+        doc.text(`Pickup Time: ${b.pickupTime || "—"}`, 25, y);
+        y += 12;
+
+        // Special Requests
+        if (b.specialRequests && b.specialRequests.trim()) {
+          doc.setFontSize(14);
+          doc.text("Special Requests / Notes", 20, y);
+          y += 5;
+          doc.line(20, y, 190, y);
+          y += 8;
+          doc.setFontSize(11);
+          const lines = doc.splitTextToSize(b.specialRequests.trim(), 160);
+          doc.text(lines, 25, y);
+          y += lines.length * 7 + 10;
+        }
+
+        // Footer
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text("Thank you for choosing CharterHouseCars!", 105, y + 15, {
+          align: "center",
+        });
+        doc.text("Safe travels • Reliable service • Best prices", 105, y + 22, {
+          align: "center",
+        });
+        doc.text(
+          "www.charterhousecars.co.uk | support@charterhousecars.co.uk",
+          105,
+          y + 29,
+          { align: "center" },
+        );
+
+        // Download
+        const fileName = `CharterHouseCars_Booking_${b.firstName || "Customer"}_${new Date().toISOString().slice(0, 10)}.pdf`;
+        doc.save(fileName);
+      }
+
+     // Export ALL bookings to PDF – beautifully styled & professional version
+document
+  .getElementById("export-all-pdf-btn")
+  ?.addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // ─── PAGE SETUP ───────────────────────────────────────────────────
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 15;
+
+    // ─── HEADER (first page only) ─────────────────────────────────────
+    function addHeader() {
+      // Dark header background
+      doc.setFillColor(26, 31, 54); // --primary
+      doc.rect(0, 0, pageWidth, 50, "F");
+
+      // Company name
+      doc.setFontSize(24);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(255, 255, 255);
+      doc.text("CharterHouseCars", pageWidth / 2, 25, { align: "center" });
+
+      // Subtitle
+      doc.setFontSize(14);
+      doc.text("All Bookings Report", pageWidth / 2, 38, { align: "center" });
+
+      // Generated date
+      doc.setFontSize(10);
+      doc.setTextColor(200, 200, 200);
+      doc.text(
+        "Generated: " + new Date().toLocaleString("en-GB"),
+        pageWidth / 2,
+        46,
+        { align: "center" }
+      );
+
+      // Optional logo (uncomment and replace URL)
+      // doc.addImage("https://your-logo-url.com/logo.png", "PNG", margin, 12, 30, 30);
+    }
+
+    // ─── TABLE HEADER ─────────────────────────────────────────────────
+    function addTableHeader(yPos) {
+      doc.setFillColor(240, 244, 248);
+      doc.rect(margin, yPos - 10, pageWidth - margin * 2, 12, "F");
+
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(26, 31, 54);
+
+      doc.text("Name", margin + 5, yPos);
+      doc.text("Email", margin + 50, yPos);
+      doc.text("Phone", margin + 95, yPos);
+      doc.text("Vehicle", margin + 130, yPos);
+      doc.text("Pickup", margin + 165, yPos);
+
+      doc.setLineWidth(0.4);
+      doc.setDrawColor(100);
+      doc.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+    }
+
+    // ─── FOOTER ───────────────────────────────────────────────────────
+    function addFooter(pageNum, totalPages) {
+      doc.setFontSize(9);
+      doc.setTextColor(100);
+      doc.text(
+        `Page ${pageNum} of ${totalPages} | Confidential`,
+        pageWidth / 2,
+        pageHeight - 10,
+        { align: "center" }
+      );
+      doc.text(
+        "CharterHouseCars • www.charterhousecars.co.uk • support@charterhousecars.co.uk",
+        pageWidth / 2,
+        pageHeight - 5,
+        { align: "center" }
+      );
+    }
+
+    // ─── START GENERATION ─────────────────────────────────────────────
+    addHeader();
+    let y = 65;
+    addTableHeader(y);
+    y += 12;
+
+    let rowIndex = 0;
+    let pageNum = 1;
+    let totalPages = 1; // will update later
+
+    document.querySelectorAll("#bookingTable tbody tr").forEach((row) => {
+      if (row.style.display !== "none") {
+        const cells = row.querySelectorAll("td");
+        const name = cells[0].textContent.trim().replace(/New|Old/g, "").trim();
+        const email = cells[1].textContent.trim();
+        const phone = cells[2].textContent.trim();
+        const vehicle = cells[7].textContent.trim();
+        const pickup = `${cells[5].textContent.trim()} ${cells[6].textContent.trim()}`;
+
+        // Alternating row background
+        if (rowIndex % 2 === 0) {
+          doc.setFillColor(248, 250, 253);
+          doc.rect(margin, y - 10, pageWidth - margin * 2, 12, "F");
+        }
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(40);
+
+        doc.text(name, margin + 5, y);
+        doc.text(email, margin + 50, y);
+        doc.text(phone, margin + 95, y);
+        doc.text(vehicle, margin + 130, y);
+        doc.text(pickup, margin + 165, y);
+
+        y += 12;
+
+        // Page break
+        if (y > 270) {
+          addFooter(pageNum, totalPages); // temporary, will fix count later
+          doc.addPage();
+          pageNum++;
+          y = 30;
+          addHeader(); // repeat header on new page (optional – remove if unwanted)
+          addTableHeader(y);
+          y += 12;
+        }
+
+        rowIndex++;
+      }
+    });
+
+    // Final footer on last page
+    totalPages = doc.internal.getNumberOfPages();
+    addFooter(pageNum, totalPages);
+
+    // Add page numbers to all pages
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(9);
+      doc.setTextColor(120);
+      doc.text(`Page ${i} of ${totalPages}`, pageWidth - 30, pageHeight - 5);
+    }
+
+    // Download with date in filename
+    const fileDate = new Date().toISOString().slice(0, 10);
+    doc.save(`CharterHouseCars_All_Bookings_${fileDate}.pdf`);
+  });
+
+      // Your existing functions (unchanged)
+      document.getElementById("searchInput").addEventListener("input", (e) => {
         const term = e.target.value.toLowerCase();
-        document.querySelectorAll("#bookingTable tbody tr").forEach(r => {
-          r.style.display = r.textContent.toLowerCase().includes(term) ? "" : "none";
+        document.querySelectorAll("#bookingTable tbody tr").forEach((r) => {
+          r.style.display = r.textContent.toLowerCase().includes(term)
+            ? ""
+            : "none";
         });
       });
 
@@ -289,55 +838,75 @@
 
       function openEditModal(key) {
         currentEditKey = key;
-        database.ref("bookings/" + key).once("value", s => {
+        database.ref("bookings/" + key).once("value", (s) => {
           const b = s.val() || {};
-          document.getElementById("editName").value = [b.firstName, b.lastName].filter(Boolean).join(" ");
+          document.getElementById("editName").value = [b.firstName, b.lastName]
+            .filter(Boolean)
+            .join(" ");
           document.getElementById("editEmail").value = b.email || "";
           document.getElementById("editPhone").value = b.phone || "";
           document.getElementById("editPickup").value = b.pickupLocation || "";
-          document.getElementById("editDropoff").value = b.dropoffLocation || "";
+          document.getElementById("editDropoff").value =
+            b.dropoffLocation || "";
           document.getElementById("editDate").value = b.pickupDate || "";
           document.getElementById("editTime").value = b.pickupTime || "";
           document.getElementById("editVehicle").value = b.vehicle || "";
-          document.getElementById("editRequests").value = b.specialRequests || "";
+          document.getElementById("editRequests").value =
+            b.specialRequests || "";
           editModal.classList.add("active");
         });
       }
 
-      editClose.addEventListener("click", () => editModal.classList.remove("active"));
+      editClose.addEventListener("click", () =>
+        editModal.classList.remove("active"),
+      );
 
       saveEditBtn.addEventListener("click", () => {
-        const nameParts = document.getElementById("editName").value.trim().split(/\s+/);
+        const nameParts = document
+          .getElementById("editName")
+          .value.trim()
+          .split(/\s+/);
         const firstName = nameParts[0] || "";
         const lastName = nameParts.slice(1).join(" ") || "";
 
-        database.ref("bookings/" + currentEditKey).update({
-          firstName, lastName,
-          email: document.getElementById("editEmail").value.trim(),
-          phone: document.getElementById("editPhone").value.trim(),
-          pickupLocation: document.getElementById("editPickup").value.trim(),
-          dropoffLocation: document.getElementById("editDropoff").value.trim(),
-          pickupDate: document.getElementById("editDate").value,
-          pickupTime: document.getElementById("editTime").value,
-          vehicle: document.getElementById("editVehicle").value.trim(),
-          specialRequests: document.getElementById("editRequests").value.trim()
-        }).then(() => {
-          editModal.classList.remove("active");
-        }).catch(err => alert("Save failed: " + err.message));
+        database
+          .ref("bookings/" + currentEditKey)
+          .update({
+            firstName,
+            lastName,
+            email: document.getElementById("editEmail").value.trim(),
+            phone: document.getElementById("editPhone").value.trim(),
+            pickupLocation: document.getElementById("editPickup").value.trim(),
+            dropoffLocation: document
+              .getElementById("editDropoff")
+              .value.trim(),
+            pickupDate: document.getElementById("editDate").value,
+            pickupTime: document.getElementById("editTime").value,
+            vehicle: document.getElementById("editVehicle").value.trim(),
+            specialRequests: document
+              .getElementById("editRequests")
+              .value.trim(),
+          })
+          .then(() => {
+            editModal.classList.remove("active");
+          })
+          .catch((err) => alert("Save failed: " + err.message));
       });
 
       function sendWhatsApp(b) {
         const name = b.firstName || "Customer";
-        const msg = `Hello ${name},\n\nYour CharterHouseCars booking for ${b.vehicle || 'a vehicle'} on ${b.pickupDate || '—'} at ${b.pickupTime || '—'} is confirmed.\n\nThank you!\nCharterHouseCars Team`;
+        const msg = `Hello ${name},\n\nYour CharterHouseCars booking for ${b.vehicle || "a vehicle"} on ${b.pickupDate || "—"} at ${b.pickupTime || "—"} is confirmed.\n\nThank you!\nCharterHouseCars Team`;
         const phone = (b.phone || "").replace(/\D/g, "");
         if (!phone) return alert("No valid phone");
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
+        window.open(
+          `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,
+          "_blank",
+        );
       }
 
       function sendEmail(email, name = "Customer", booking = {}) {
-  const subject = " ✅CharterHouseCars Booking Confirmation";
-
-  const body = `
+        const subject = " ✅CharterHouseCars Booking Confirmation";
+        const body = `
 Dear ${name},
 
 ✅Your booking is now confirmed ✓
@@ -345,11 +914,11 @@ Dear ${name},
 We look forward to serving you ✓
 
 Booking details reminder:
-• Vehicle:        ${booking.vehicle        || '—'}
-• Pickup:         ${booking.pickupLocation  || '—'}
-• Drop-off:       ${booking.dropoffLocation || '—'}
-• Date:           ${booking.pickupDate      || '—'}
-• Time:           ${booking.pickupTime      || '—'}
+• Vehicle:        ${booking.vehicle || "—"}
+• Pickup:         ${booking.pickupLocation || "—"}
+• Drop-off:       ${booking.dropoffLocation || "—"}
+• Date:           ${booking.pickupDate || "—"}
+• Time:           ${booking.pickupTime || "—"}
 
 If you have any questions or need assistance,
 please reply to this email ✓
@@ -358,28 +927,50 @@ Thank you for choosing CharterHouseCars!
 
 Best regards,  
 CharterHouseCars Team
-`.trim();
+        `.trim();
 
-  const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.open(mailto, "_blank");
-}
+        const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailto, "_blank");
+      }
 
       function sendSMS(phone, name = "Customer") {
-        const cleanPhone = phone.replace(/\D/g, ''); // Remove non-digits
-        if (!cleanPhone || cleanPhone.length < 9) { // Basic UK validation (e.g., 07xxx...)
+        const cleanPhone = phone.replace(/\D/g, "");
+        if (!cleanPhone || cleanPhone.length < 9) {
           alert("Invalid or missing UK phone number for SMS");
           return;
         }
-
-        // Simple UK-focused confirmation message
         const message = `Dear ${name}, your CharterHouseCars booking is confirmed. Thank you for choosing us! Reply if needed.`;
-
-        // sms: URI opens default SMS app (Messages on Android, etc.)
-        // For UK, phone should be in international format: +447xxxxxxxxx
-        let smsUri = `sms:${cleanPhone.startsWith('44') ? '+' + cleanPhone : '+44' + cleanPhone}?body=${encodeURIComponent(message)}`;
-
+        let smsUri = `sms:${cleanPhone.startsWith("44") ? "+" + cleanPhone : "+44" + cleanPhone}?body=${encodeURIComponent(message)}`;
         window.open(smsUri, "_blank");
       }
+
+      // Disable right-click + inspect shortcuts
+      document.addEventListener(
+        "contextmenu",
+        function (e) {
+          e.preventDefault();
+          return false;
+        },
+        false,
+      );
+
+      document.addEventListener(
+        "keydown",
+        function (e) {
+          if (
+            e.key === "F12" ||
+            e.keyCode === 123 ||
+            (e.ctrlKey && e.shiftKey && (e.key === "I" || e.keyCode === 73)) ||
+            (e.ctrlKey && e.shiftKey && (e.key === "J" || e.keyCode === 74)) ||
+            (e.ctrlKey && (e.key === "U" || e.keyCode === 85)) ||
+            (e.ctrlKey && e.shiftKey && (e.key === "C" || e.keyCode === 67))
+          ) {
+            e.preventDefault();
+            return false;
+          }
+        },
+        false,
+      );
     </script>
   </body>
 </html>
