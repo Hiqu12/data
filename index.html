@@ -334,23 +334,37 @@
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
       }
 
-      function sendEmail(email, name = "Customer") {
-        const subject = "CharterHouseCars Booking Confirmation";
-        const body = `Dear ${name},
+      function sendEmail(email, name = "Customer", b = {}) {
+  const subject = "✅ CharterHouseCars Booking Confirmed";
 
-Your booking is now confirmed.
+  const body = `
+Hello ${name}! ✅
 
-We look forward to serving you.
+Your booking is now confirmed 🎉
 
-If you have questions, reply to this email.
+Journey Information:
+• Customer: ${b.firstName || ''} ${b.lastName || name}
+• Vehicle:  ${b.vehicle || '—'}
+• Pickup:   ${b.pickupLocation || '—'}
+• Drop-off: ${b.dropoffLocation || '—'}
+• Date:     ${b.pickupDate || '—'}
+• Time:     ${b.pickupTime || '—'}
 
-Best regards,
-CharterHouseCars Team`;
+Special Requests:
+${b.specialRequests ? '→ ' + b.specialRequests.trim() : 'None mentioned'}
 
-        const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.open(mailto, "_blank");
-      }
+We’re excited to welcome you on board!
 
+Questions? Just reply to this email — we’re here to help 😊
+
+Safe travels!  
+CharterHouseCars Team  
+www.charterhousecars.co.uk
+`.trim();
+
+  const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.open(mailto, "_blank");
+}
       function sendSMS(phone, name = "Customer") {
         const cleanPhone = phone.replace(/\D/g, ''); // Remove non-digits
         if (!cleanPhone || cleanPhone.length < 9) { // Basic UK validation (e.g., 07xxx...)
