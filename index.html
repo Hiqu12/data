@@ -335,14 +335,14 @@
       }
 
       function sendEmail(email, name = "Customer", booking = {}) {
-  const subject = "CharterHouseCars Booking Confirmation";
+  const subject = " ✅CharterHouseCars Booking Confirmation";
 
   const body = `
 Dear ${name},
 
-Your booking is now confirmed ✓
+✅Your booking is now confirmed 
 
-We look forward to serving you ✓
+We look forward to serving you 
 
 Booking details reminder:
 • Vehicle:        ${booking.vehicle        || '—'}
@@ -352,7 +352,7 @@ Booking details reminder:
 • Time:           ${booking.pickupTime      || '—'}
 
 If you have any questions or need assistance,
-please reply to this email ✓
+please reply to this email ✅
 
 Thank you for choosing CharterHouseCars!
 
