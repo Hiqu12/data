@@ -334,22 +334,35 @@
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, "_blank");
       }
 
-      function sendEmail(email, name = "Customer") {
-        const subject = "CharterHouseCars Booking Confirmation";
-        const body = `Dear ${name},
+      function sendEmail(email, name = "Customer", booking = {}) {
+  const subject = "CharterHouseCars Booking Confirmation";
 
-Your booking is now confirmed.
+  const body = `
+Dear ${name},
 
-We look forward to serving you.
+Your booking is now confirmed ✓
 
-If you have questions, reply to this email.
+We look forward to serving you ✓
 
-Best regards,
-CharterHouseCars Team`;
+Booking details reminder:
+• Vehicle:        ${booking.vehicle        || '—'}
+• Pickup:         ${booking.pickupLocation  || '—'}
+• Drop-off:       ${booking.dropoffLocation || '—'}
+• Date:           ${booking.pickupDate      || '—'}
+• Time:           ${booking.pickupTime      || '—'}
 
-        const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.open(mailto, "_blank");
-      }
+If you have any questions or need assistance,
+please reply to this email ✓
+
+Thank you for choosing CharterHouseCars!
+
+Best regards,  
+CharterHouseCars Team
+`.trim();
+
+  const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.open(mailto, "_blank");
+}
 
       function sendSMS(phone, name = "Customer") {
         const cleanPhone = phone.replace(/\D/g, ''); // Remove non-digits
