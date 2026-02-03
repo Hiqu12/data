@@ -116,6 +116,11 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        
+      }
+      #mark-read{
+        background-color: black;
+
       }
       .edit-btn {
         background: #0069d9;
@@ -239,6 +244,10 @@
   background: #10b981;
   color: white;
 }
+#old-badge{
+  background-color: rgb(255, 0, 0);
+  color: rgb(0, 0, 0);
+}
 
 /* Hover effect on badge */
 tr:hover .status-badge {
@@ -252,8 +261,10 @@ tr:hover .status-badge {
   color: white;
 }
 .old-badge {
-  background: #f97316;
+  background: #ffb5155e;
   color: white;
+  margin-top: 15px;
+  
 }
 
 /* New booking row highlight – smooth gradient */
@@ -638,7 +649,7 @@ tr.new-booking:hover {
             row.innerHTML = `
               <td data-label="Name">
                 ${fullName}
-                ${isNew ? '<span class="status-badge new-badge">New</span>' : '<span class="status-badge">Old</span>'}
+                ${isNew ? '<span class="status-badge new-badge">New</span>' : '<span class="status-badge old-badge">Old</span>'}
               </td>
               <td data-label="Email">${b.email || "—"}</td>
               <td data-label="Phone">${b.phone || "—"}</td>
@@ -659,7 +670,7 @@ tr.new-booking:hover {
                   <button class="btn-action email-btn" data-email="${b.email || ""}" data-name="${fullName}" title="Send via Email"><i class="fas fa-envelope"></i></button>
                   <button class="btn-action sms-btn" data-phone="${b.phone || ""}" data-name="${fullName}" title="Send via SMS (UK)"><i class="fas fa-sms"></i></button>
                   <button class="btn-action pdf-btn" data-key="${key}" data-booking='${JSON.stringify(b)}' title="Export Single Booking to PDF"><i class="fas fa-file-pdf"></i></button>
-                  ${isNew ? `<button class="btn-action mark-read-btn" data-key="${key}" title="Mark as read"><i class="fas fa-check"></i> Mark Read</button>` : ""}
+                  ${isNew ? `<button class="btn-action mark-read-btn" id="mark-read" data-key="${key}" title="Mark as read"><i class="fas fa-check"></i> Mark Read</button>` : ""}
                   <select class="status-select status-${status.toLowerCase()}" data-key="${key}" onchange="updateBookingStatus('${key}', this.value)">
                     <option value="Pending" ${status === "Pending" ? "selected" : ""}>Pending</option>
                     <option value="Confirmed" ${status === "Confirmed" ? "selected" : ""}>Confirmed</option>
