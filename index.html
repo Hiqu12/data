@@ -344,11 +344,11 @@ Your booking is now confirmed 🎉
 
 Journey Information:
 • Customer: ${b.firstName || ''} ${b.lastName || name}
-• Vehicle:  ${b.vehicle || '—'}
-• Pickup:   ${b.pickupLocation || '—'}
-• Drop-off: ${b.dropoffLocation || '—'}
-• Date:     ${b.pickupDate || '—'}
-• Time:     ${b.pickupTime || '—'}
+• Vehicle:  ${b.vehicle}
+• Pickup:   ${b.pickupLocation}
+• Drop-off: ${b.dropoffLocation}
+• Date:     ${b.pickupDate}
+• Time:     ${b.pickupTime}
 
 Special Requests:
 ${b.specialRequests ? '→ ' + b.specialRequests.trim() : 'None mentioned'}
